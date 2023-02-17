@@ -1,0 +1,23 @@
+
+.poput-box {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 75%;
+    border-radius: 4px;
+    border: solid 1px #c6c6c6;
+	z-index: 999999;
+	background: #fff;
+    /* display: none; */
+}
+.title-print {
+    text-align: center;
+}
+.form-print {
+    padding: 10px 20px;
+  padding-bottom: 80px;
+  position: relative;
+}
+.custom-h3 { text-align: center; margin-top: 6px; font-size:24px;letter-spacing:2px;}

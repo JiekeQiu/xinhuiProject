@@ -1,0 +1,10 @@
+*{
+    padding:0;
+    margin: 0;
+}
+.l{
+    float: left
+}
+.r{
+    float: right;
+}
