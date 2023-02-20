@@ -14,14 +14,14 @@
             <span ref="span2">修改</span>
           </div>
         </el-col>
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
-          <div class="grid-content bg-purple" @click="save" ref="save">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" @click="save">
+          <div class="grid-content bg-purple"  ref="save">
             <i class="xz icon3" ref="icon3"></i>
             <span ref="span3">保存</span>
           </div>
         </el-col>
-        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
-          <div class="grid-content bg-purple" @click="del">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" @click="del">
+          <div class="grid-content bg-purple" >
             <i class="xz icon4"></i>
             <span>删除</span>
           </div>
@@ -32,12 +32,19 @@
             <span ref="span5">打印</span>
           </div>
         </el-col>
+        <el-col :xs="10" :sm="6" :md="4" :lg="3" :xl="1" @click.stop="refresh">
+          <div class="grid-content bg-purple">
+            <i class="xz icon7" ref="icon7"></i>
+            <span ref="span7" class="refresh">刷新</span>
+          </div>
+        </el-col>
         <el-col :xs="10" :sm="6" :md="4" :lg="3" :xl="1" @click.stop.Prevent="zhuanhuan">
           <div class="grid-content bg-purple">
             <i class="xz zhuanhuan icon6"></i>
             <span class="lass_span">页面转换</span>
           </div>
         </el-col>
+        
       </el-row>
     </div>
     <div>
@@ -324,7 +331,11 @@ export default {
       let str = sessionStorage.getItem("str");
 
       if (str) {
-        this.$router.push("/home/output/print");
+        // this.$router.push("/home/output/print");
+        let routerData = this.$router.resolve({
+            path: "/home/output/print"
+        })
+        window.open(routerData.href, "_blank");
       } else {
         this.$alert("请选中需要打印的内容", "错误提示", {
           confirmButtonText: "确定"
@@ -723,6 +734,10 @@ export default {
         message: msg,
         duration: time
       });
+    },
+    // 刷新功能
+    refresh(){
+      location.reload()
     }
   }
 };
@@ -744,7 +759,8 @@ export default {
 .icon3,
 .icon4,
 .icon5,
-.icon6 {
+.icon6,
+.icon7 {
   display: inline-block;
   width: 20px;
   height: 20px;
@@ -769,6 +785,9 @@ export default {
   background-image: url("../assets/images/icon/zhuanhuan.png");
   /* width: 18px; */
   height: 17px;
+}
+.icon7{
+  background-image: url("../assets/images/icon/refresh.png");
 }
 .lass_span {
   display: block;

@@ -10,16 +10,16 @@
         </div>
         <div class="msg">
           <div class="l uu" style="width:1000px;font-size:18px">
-            <p style="width:200px;text-align:left;margin:0 0 10px 0">客戶名称：{{tableMsg.name}}</p>
+            <p style="width:200px;text-align:left;margin:0 0 10px 0">客戶名称：{{ tableMsg.name }}</p>
             <div class="hhh" style="width:900px;text-align:left;padding-left:30px">
-              <span>地址：{{tableMsg.address}}</span>
-              <span style="padding-left:48px" class="ls">电话：{{tableMsg.phone}}</span>
+              <span>地址：{{ tableMsg.address }}</span>
+              <span style="padding-left:48px" class="ls">电话：{{ tableMsg.phone }}</span>
             </div>
           </div>
           <div class="custom-h2" style="width:400px;text-align:center;left:30%">产品出库单</div>
           <div class="r tdate" style="width:300px">
-            <p style="font-size:20px;height:35px">NO:{{tableMsg.No}}</p>
-            <p>送货日期：{{tableMsg.date}}</p>
+            <p style="font-size:20px;height:35px">NO:{{ tableMsg.No }}</p>
+            <p>送货日期：{{ tableMsg.date }}</p>
           </div>
         </div>
       </div>
@@ -40,15 +40,15 @@
             <td class="tb7">金额</td>
             <td class="tb8">备注</td>
           </tr>
-          <tr v-for="(data,idx) in tableData" :key="idx" style="height:30px">
-            <td>{{data.date}}</td>
-            <td>{{data.name}}</td>
-            <td>{{data.typeNmae}}</td>
-            <td>{{data.unit}}</td>
-            <td>{{data.num}}</td>
-            <td>{{data.money}}</td>
-            <td>{{data.All}}</td>
-            <td>{{data.remark}}</td>
+          <tr v-for="(data, idx) in tableData" :key="idx" style="height:30px">
+            <td>{{ data.date }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.typeNmae }}</td>
+            <td>{{ data.unit }}</td>
+            <td>{{ data.num }}</td>
+            <td>{{ data.money }}</td>
+            <td>{{ data.All }}</td>
+            <td>{{ data.remark }}</td>
           </tr>
           <tr v-for="len in lenData" v-show="show" style="height:30px">
             <td></td>
@@ -62,13 +62,13 @@
           </tr>
         </table>
         <ul class="m" style="font-size:18px">
-          <li class="l" style="width:600px;text-align:left">合计金额（大写）：{{AllMoney}}</li>
-          <li class="r add" style="width:250px;text-align:center;">（小写）：￥{{tableMsg.AllMoney}}</li>
+          <li class="l" style="width:600px;text-align:left">合计金额（大写）：{{ AllMoney }}</li>
+          <li class="r add" style="width:250px;text-align:center;">（小写）：￥{{ tableMsg.AllMoney }}</li>
         </ul>
         <ul class="foot">
           <ul class="zs" style="width:1000px;text-align:left;font-size:16px">注：以上货品请核对数量，如有质量问题，请在收货后3天内通知本公司，逾期恕不负责。</ul>
           <ul class="cx" style="font-size:16px;width:700px">
-            <li class="l" style="width:320px; height:60px,margin-bottom:10px">送货单位及经手人（盖章）：{{tableMsg.lister}}</li>
+            <li class="l" style="width:320px; height:60px,margin-bottom:10px">送货单位及经手人（盖章）：{{ tableMsg.lister }}</li>
             <li class="r ccc" style="width:300px;">收货单位及经手人（盖章）：</li>
           </ul>
         </ul>
@@ -145,42 +145,46 @@ export default {
         repeatTableHeader: true,
         ignoreElements: ["no-print"] || [], // ['no-print']
         properties: null,
-        onPrintDialogClose:this.callback,
-        onError:this.err
+        onPrintDialogClose: this.callback,
+        onError: this.err
       });
     },
     // 返回出库首页
     back() {
-      this.$router.push("/home/output/cklist");
+      // this.$router.push("/home/output/cklist");
       sessionStorage.removeItem("str");
+      
+        window.close();
+      // }
+
     },
     // 离开打印页面的回调
-    callback(){
+    callback() {
       this.tableMsg.status = "已打印";
       let status = this.tableMsg.status
       let No = this.tableMsg.No
       let params = {
-        No:No,
-        status:status
+        No: No,
+        status: status
       }
-      console.log("执行回调",this.tableMsg)
-      getAxios('/update',params).then(res=>{
+      console.log("执行回调", this.tableMsg)
+      getAxios('/update', params).then(res => {
         console.log(res.status)
-        if(res.status==202){
+        if (res.status == 202) {
           this.$router.push("/home/output/cklist")
-          this.$alert("打印成功","温馨提示",{
-            confirmButtonText:"确定"
+          this.$alert("打印成功", "温馨提示", {
+            confirmButtonText: "确定"
           })
-        }else if(res.status==203){
+        } else if (res.status == 203) {
           this.$router.push("/home/output/cklist")
-          this.$alert("已经打印过了","温馨提示",{
-            confirmButtonText:'确定'
+          this.$alert("已经打印过了", "温馨提示", {
+            confirmButtonText: '确定'
           })
         }
       })
     },
     // 发生错误执行的回调
-    err(){
+    err() {
       console.log("出错了")
     }
   }

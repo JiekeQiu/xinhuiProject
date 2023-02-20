@@ -37,7 +37,7 @@
           ></el-option>
         </el-select>
         <el-button @click="search();dialogTableVisible=true">搜索</el-button>
-        <el-dialog title="查询结果" v-model="dialogTableVisible">
+        <el-dialog title="查询结果" v-model="dialogTableVisible" @close='close'>
           <el-table :data="lister" style="width: 100%;" class="box">
             <el-table-column fixed label="型号" align="center" prop="name"/>
             <el-table-column fixed label="规格" align="center" prop="typename"/>
@@ -161,7 +161,7 @@ export default {
       };
       getAxios("/kcsearch", p).then(res => {
         if (res.status == 200) {
-          console.log('长度',res.res)
+          console.log('搜索结果',res.res)
           this.total=res.res.length
          this.lister = res.res.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize)
             // 遍历拿到查询的总数
@@ -237,6 +237,9 @@ export default {
       console.log("有没有生效",_that.lister)
 
       }
+    },
+    close(){
+      location.reload()
     }
   }
 };

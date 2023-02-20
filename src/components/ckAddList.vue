@@ -526,6 +526,7 @@ export default {
     messageList() {
       let bianhao = this.formLabelAlign.bianhao;
       getAxios("/ckadd", { bianhao }).then(res => {
+        console.log("失去焦点",res)
         if (res.status == 200) {
           this.$refs.No2.input.style.color = "";
 
