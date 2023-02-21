@@ -71,27 +71,27 @@
         highlight-current-row
         @current-change="handleCurrentChange"
       >
-        <el-table-column prop="num" label="序号" width="53%"></el-table-column>
-        <el-table-column prop="status" label="状态" width="67%"></el-table-column>
-        <el-table-column prop="No" label="送货单号" width="140%"></el-table-column>
-        <el-table-column prop="name" label="客户名称" width="140%"></el-table-column>
-        <el-table-column prop="address" label="客户地址" width="580%"></el-table-column>
-        <el-table-column prop="date" label="送货日期" width="120%"></el-table-column>
-        <el-table-column prop="All" label="应收金额" width="160%"></el-table-column>
+        <el-table-column prop="num" label="序号" width="53px"></el-table-column>
+        <el-table-column prop="status" label="状态" width="67px"></el-table-column>
+        <el-table-column prop="No" label="送货单号" width="140px"></el-table-column>
+        <el-table-column prop="name" label="客户名称" width="140px"></el-table-column>
+        <el-table-column prop="address" label="客户地址" width="580px"></el-table-column>
+        <el-table-column prop="date" label="送货日期" width="120px"></el-table-column>
+        <el-table-column prop="All" label="应收金额"></el-table-column>
       </el-table>
     </div>
 
     <div class="goodsList">
       <span class="list">发货明细</span>
       <el-table :data="goodList" border style="width: 100%" height="300px">
-        <el-table-column prop="date" label="序号" width="52%"></el-table-column>
-        <el-table-column prop="name" label="产品名称" width="320%"></el-table-column>
-        <el-table-column prop="typeNmae" label="规格" width="320%"></el-table-column>
-        <el-table-column prop="unit" label="单位" width="60%"></el-table-column>
-        <el-table-column prop="money" label="单价" width="80%"></el-table-column>
-        <el-table-column prop="num" label="数量" width="120%"></el-table-column>
-        <el-table-column prop="All" label="总金额" width="120%"></el-table-column>
-        <el-table-column prop="remark" label="备注" width="100%"></el-table-column>
+        <el-table-column prop="date" label="序号" width="52px"></el-table-column>
+        <el-table-column prop="name" label="产品名称" width="320px"></el-table-column>
+        <el-table-column prop="typeNmae" label="规格" width="320px"></el-table-column>
+        <el-table-column prop="unit" label="单位" width="60px"></el-table-column>
+        <el-table-column prop="money" label="单价" width="80px"></el-table-column>
+        <el-table-column prop="num" label="数量" width="120px"></el-table-column>
+        <el-table-column prop="All" label="总金额" width="120px"></el-table-column>
+        <el-table-column prop="remark" label="备注"></el-table-column>
       </el-table>
     </div>
   </div>

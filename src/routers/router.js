@@ -1,27 +1,5 @@
 // 引入路由
 import { createRouter, createWebHashHistory } from "vue-router"
-//引入路由组件
-import login from '../pages/login.vue'
-import home from '../pages/home.vue'
-// import message from '../components/message.vue'
-import inventory  from '../components/inventory.vue'
-import navigation from '../components/navigation.vue'
-import received from '../components/received.vue'
-import goodlist from '../components/goodlist.vue'
-import material from '../components/material.vue'
-import buhuo from '../components/buhuo.vue'
-import output from '../components/output.vue'
-import cklist from '../components/ckList.vue'
-import ckaddlist from '../components/ckAddList.vue'
-import messagelist from '../components/messageList.vue'
-import print from '../components/print.vue'
-import bill from "../components/bill/common/home.vue"
-import infolist from "../components/bill/pages/infoList.vue"
-import infomoney from "../components/bill/pages/infoMoney.vue"
-import infomonthlist from "../components/bill/pages/infoMonthList.vue"
-import billmoney from "../components/bill/pages/billMoney.vue"
-import c from '../components/c.vue'
-
 
 // 定义路由
 const routes = [
@@ -32,92 +10,92 @@ const routes = [
     {
         name: "login",
         path: '/login',
-        component: login,
+        component: () => import(/* webpackChunkName: "login" */ '../pages/login.vue'),
         meta:{title:"登陆页"}
     },
     {
         name: "home",
         path: '/home',
-        component: home,
+        component: () => import(/* webpackChunkName: "home" */ '../pages/home.vue'),
         children: [
             {
                 path:"bill",
                 name:"bill",
-                component:bill,
+                component: () => import(/* webpackChunkName: "bill" */ '../components/bill/common/home.vue'),
                 meta:{ title:"对账单"},
                 children:[
                     {
                       path:"infolist",
                       name:'infolist',
-                      component:infolist,
+                      component: () => import(/* webpackChunkName: "infolist" */ '../components/bill/pages/infoList.vue'),
                       meta:{title:'客户详单'} 
                     },{
                         path:"infomoney",
                         name:'infomoney',
-                        component:infomoney,
+                        component: () => import(/* webpackChunkName: "infomoney" */ '../components/bill/pages/infoMoney.vue'),
                         meta:{title:'客户订单金额'} 
                     },{
                         path:"infomonthlist",
                         name:'infomonthlist',
-                        component:infomonthlist,
+                        component: () => import(/* webpackChunkName: "infomonthlist" */ '../components/bill/pages/infoMonthList.vue'),
                         meta:{title:'客户月详单'} 
                     },{
                         path:"billmoney",
                         name:'billmoney',
-                        component:billmoney,
+                        component: () => import(/* webpackChunkName: "billmoney" */ '../components/bill/pages/billMoney.vue'),
                         meta:{title:'客户订单总金额'} 
                     }
                 ]
             },
             {
                 path:'received',
-                component:received,
+                component: () => import(/* webpackChunkName: "received" */ '../components/received.vue'),
                 meta:{title:"入库"}
             },
             {
                 path:'navigation',
-                component:navigation,
+                component: () => import(/* webpackChunkName: "navigation" */ '../components/navigation.vue'),
                 meta:{title:"首页"}
             },{
                 path:'inventory',
-                component:inventory,
+                component: () => import(/* webpackChunkName: "inventory" */ '../components/inventory.vue'),
                 meta:{title:"库存盘点"}
             },{
                 path:'goodlist',
-                component:goodlist,
+                component: () => import(/* webpackChunkName: "goodlist" */ '../components/goodlist.vue'),
                 meta:{title:"入库明细"}
             },
             {
                 path:'material',
-                component:material,
+                component: () => import(/* webpackChunkName: "material" */ '../components/material.vue'),
                 meta:{title:"原料入库"}
 
             },{
                 path:'buhuo',
-                component:buhuo,
+                component: () => import(/* webpackChunkName: "buhuo" */ '../components/buhuo.vue'),
                 meta:{title:"入库基础信息"}
 
             },{
                 path:'output',
-                component:output,
+                component: () => import(/* webpackChunkName: "output" */ '../components/output.vue'),
                 meta:{title:"出库单"},
                 children:[
                     {
                         path:'ckaddlist',
-                        component:ckaddlist
+                        component: () => import(/* webpackChunkName: "ckaddlist" */ '../components/ckAddList.vue'),
                     },{
                         path:'cklist',
-                        component:cklist,
+                        component: () => import(/* webpackChunkName: "cklist" */ '../components/ckList.vue'),
                     },
                     {
                         path:'print',
-                        component:print
+                        component: () => import(/* webpackChunkName: "print" */ '../components/print.vue'),
                     }
 
                 ]
             },{
                 path:'messagelist',
-                component:messagelist,
+                component: () => import(/* webpackChunkName: "messagelist" */ '../components/messageList.vue'),
                 meta:{title:"客户信息"}
 
             }
