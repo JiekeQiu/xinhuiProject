@@ -6,7 +6,8 @@ const store = createStore({
         return {
             str:"",
             flag:true,
-            list_msg:[]
+            list_msg:[],
+            time:{}
         }
     },
     mutations:{
@@ -14,10 +15,13 @@ const store = createStore({
             state.str = sessionValue
         },
         increment1(state,val){
-            console.log("测试一下vueX",val)
             state.flag = false;
             state.list_msg = val
-            
+        },
+        isTime(state,val){
+            console.log("测试一下vueX",val)
+            state.time = val
+
         }
     }
 })

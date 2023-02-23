@@ -62,7 +62,7 @@ export default {
                         All:a
                     })
                     this.info_list = res.arr
-
+                    this.$store.commit("isTime",val)
                     let list = JSON.stringify(res.arr)
                     localStorage.setItem("list",list)
                     this.$store.commit("increment1",this.info_list)

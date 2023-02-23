@@ -17,8 +17,8 @@
               <div class="title">
                 <p>鹰潭市新辉眼镜有限公司</p>
                 <p v-show="list.date==null" class="title_msg">客户总订单</P>
-                <p v-show="list.time===list.date&&(list.title==='客户详单'||list.title=='客户订单金额')" class="title_msg">{{list.name}}{{list.time}}月份对账单</p>
-                <p v-show="list.time!=list.date&&(list.title==='客户详单'||list.title=='客户订单金额')" class="title_msg">{{list.name}}{{list.time}}月至{{list.date}}月份对账单</p>
+                <p v-show="list.time===list.date&&(list.title==='客户详单'||list.title=='客户订单金额')" class="title_msg">{{list.name}}{{list.time}}-{{list.timeEnd}}对账单</p>
+                <p v-show="list.time!=list.date&&(list.title==='客户详单'||list.title=='客户订单金额')" class="title_msg">{{list.name}}{{list.time}}至{{list.timeEnd}}对账单</p>
               </div>
               <el-container class="top_msg">
                 <span>列印人：</span>
@@ -47,6 +47,7 @@
           </tr>
            <tr v-show="this.$route.meta.title=='客户订单总金额'">
             <td>客户名称</td>
+            <td>日期</td>
             <td>总数量</td>
             <td>总金额</td>
           </tr>
@@ -75,6 +76,7 @@
          <tbody style="text-align:center;" v-show="this.$route.meta.title=='客户订单总金额'">
           <tr v-for="item in this.$store.state.list_msg" >
             <td>{{item.username}}</td>
+            <td>{{item.time}}</td>
             <td>{{item.num}}</td>
             <td>{{item.money}}</td>
           </tr>
@@ -84,7 +86,7 @@
           <tr>
             <td colspan="10" align="center" style="font-weight:bold;border:none;">
               <div class="foot_msg">
-                <span>地址：江西省鹰潭市余江区眼镜工业园四期</span>
+                <span style="padding-right: 20px;">地址：江西省鹰潭市余江区眼镜工业园四期</span>
                 <span>电话：15170100003</span>
               </div>
               <div class="foot_msg">注：请核对无误后，三日之内签回。否则以此单为准，谢谢配合！</div>
@@ -114,6 +116,9 @@ export default {
         .substr(0, 19)
         .replace("T", " ")
     };
+  },
+  mounted(){
+    console.log("拿到list",this.$store.state)
   },
   methods:{
       goback(){

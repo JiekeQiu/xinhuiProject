@@ -77,7 +77,7 @@
         <el-table-column prop="name" label="客户名称" width="140%"></el-table-column>
         <el-table-column prop="address" label="客户地址" width="580%"></el-table-column>
         <el-table-column prop="date" label="送货日期" width="120%"></el-table-column>
-        <el-table-column prop="All" label="应收金额" width="160%"></el-table-column>
+        <el-table-column prop="All" label="应收金额" ></el-table-column>
       </el-table>
     </div>
 
@@ -91,7 +91,7 @@
         <el-table-column prop="money" label="单价" width="80%"></el-table-column>
         <el-table-column prop="num" label="数量" width="120%"></el-table-column>
         <el-table-column prop="All" label="总金额" width="120%"></el-table-column>
-        <el-table-column prop="remark" label="备注" width="100%"></el-table-column>
+        <el-table-column prop="remark" label="备注" ></el-table-column>
       </el-table>
     </div>
   </div>

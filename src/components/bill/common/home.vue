@@ -18,7 +18,7 @@
         <el-container v-show="flag">
             <ceprint :list="obj" @back_flag="back"></ceprint>
         </el-container>
-        <el-container>
+        <!-- <el-container> -->
             <div class="msg_msg">
                     <!-- <router-view  v-slot="{ Component }">
                     <keep-alive :include="editableTabs">
@@ -27,7 +27,7 @@
                     </router-view> -->
                 <router-view></router-view>
             </div>
-        </el-container>
+        <!-- </el-container> -->
 
     </div>
 </template>
@@ -70,13 +70,19 @@ export default {
                 let user = localStorage.getItem("user")
                 let username = JSON.parse(user).username
                 this.obj.username = username
-                console.log("看看电视",this.$store.state.list_msg)
+                console.log("看看电视",this.$store.state)
                 let len = this.$store.state.list_msg.length
                 let time = ''
                 let date = null
+                let timeStart = null
+                let timeEnd = null
                 if(this.$store.state.list_msg[0].time){
-                   time = this.$store.state.list_msg[0].time.substring(0,7).replace('-','年')
-                    date = this.$store.state.list_msg[len-2].time.substring(0,7).replace('-','年')
+                    timeStart = this.$store.state.time.timeStart.substring(5,10).replace('-','月')+'日'
+                    timeEnd = this.$store.state.time.timeEnd.substring(5,10).replace('-','月')+'日'
+                    console.log("可以这个拿到时间数据",timeEnd)
+
+                //    time = this.$store.state.list_msg[0].time.substring(0,7).replace('-','年')
+                //     date = this.$store.state.list_msg[len-2].time.substring(0,7).replace('-','年')
 
                 }else{
                     
@@ -96,11 +102,10 @@ export default {
                     }
                 }
                 // let name = this.$store.state.list_msg[0].username
-                console.log('哭着说',name)
                 let title = this.$route.meta.title
-                this.obj.time = time
+                this.obj.time = timeStart
                 this.obj.name = name
-                this.obj.date = date
+                this.obj.timeEnd = timeEnd
                 this.obj.title = title
             // }else if(this.$route.meta.title=="客户订单金额"){
 
