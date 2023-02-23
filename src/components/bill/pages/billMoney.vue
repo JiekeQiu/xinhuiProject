@@ -38,7 +38,7 @@ export default {
                         
                     })
                     let a = money.toFixed(2)
-                    let b = money.toFixed(0)
+                    let b = num.toFixed(0)
                     res.res.push({
                         name:"总计",
                         num:b,
