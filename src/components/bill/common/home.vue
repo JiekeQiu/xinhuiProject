@@ -34,6 +34,7 @@
 <script>
 import tHeader from "./tags.vue"
 import ceprint from "./print.vue"
+import { getAxios } from "../../../assets/js/base.js";
 
 import print from "print-js";
 export default {
@@ -122,37 +123,44 @@ export default {
         },
         // 导出表格
         download(){
-            let jsonData = this.$store.state.list_msg
-            
-             // 列标题
-        let str = '<caption>鹰潭市新辉眼镜有限公司</caption><tr><td>序号</td><td>产品</td><td>邮箱</td></tr>';
-        // 循环遍历，每行加入tr标签，每个单元格加td标签
-        for(let i = 0 ; i < jsonData.length ; i++ ){
-            str+='<tr>';
-            for(const key in jsonData[i]){
-                // 增加  为了不让表格显示科学计数法或者其他格式
-                str+=`<td>${ jsonData[i][key] + '  '}</td>`;    
-            }
-            str+='</tr>';
-        }
-        // Worksheet名
-        const worksheet = 'Sheet1'
-        const uri = 'data:application/vnd.ms-excel;base64,';
-  
-        // 下载的表格模板数据
-        const template = `<html xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:x="urn:schemas-microsoft-com:office:excel"
-        xmlns="http://www.w3.org/TR/REC-html40">
-        <head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
-        <x:Name>${worksheet}</x:Name>
-        <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>
-        </x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
-        </head><body><table>${str}</table></body></html>`;
-        let base64 = s => window.btoa(unescape(encodeURIComponent(s)));
+            // let jsonData = this.$store.state.list_msg
+            let jsonData = JSON.stringify(this.$store.state.list_msg)
+            let obj = {}
+            obj.data = jsonData
+            console.log("需要导出的内容",obj)
+            getAxios('/exportfile',obj).then(res=>{
+                console.log("打印结果",res)
+                // window.open()
+            })
+//              // 列标题
+//         let str = '<caption>鹰潭市新辉眼镜有限公司</caption><tr><td>客户名称</td><td>日期</td><td>总数量</td><td>总金额</td></tr>';
+//         // 循环遍历，每行加入tr标签，每个单元格加td标签
+//         for(let i = 0 ; i < jsonData.length ; i++ ){
+//             str+='<tr>';
+//             for(const key in jsonData[i]){
+//                 // 增加  为了不让表格显示科学计数法或者其他格式
+//                 str+=`<td>${ jsonData[i][key] + '  '}</td>`;    
+//             }
+//             str+='</tr>';
+//         }
+//         // Worksheet名
+//         const worksheet = 'Sheet1'
+//         const uri = 'data:application/vnd.ms-excel;base64,';
+//   
+//         // 下载的表格模板数据
+//         const template = `<html xmlns:o="urn:schemas-microsoft-com:office:office"
+//         xmlns:x="urn:schemas-microsoft-com:office:excel"
+//         xmlns="http://www.w3.org/TR/REC-html40">
+//         <head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
+//         <x:Name>${worksheet}</x:Name>
+//         <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>
+//         </x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
+//         </head><body><table>${str}</table></body></html>`;
+//         let base64 = s => window.btoa(unescape(encodeURIComponent(s)));
 
-        // 下载模板
-        window.location.href = uri + base64(template);
-        // 输出base64编码
+//         // 下载模板
+//         window.location.href = uri + base64(template);
+//         // 输出base64编码
         }
     },
     

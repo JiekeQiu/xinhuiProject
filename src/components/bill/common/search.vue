@@ -183,6 +183,9 @@ export default {
         }
 
         this.$emit("search",this.formLabelAlign)
+        console.log("搜索内容",this.formLabelAlign)
+        this.$store.commit("search", this.formLabelAlign)
+
     }
   },
  

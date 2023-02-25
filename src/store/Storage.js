@@ -7,7 +7,8 @@ const store = createStore({
             str:"",
             flag:true,
             list_msg:[],
-            time:{}
+            time:{},
+            search:{}
         }
     },
     mutations:{
@@ -22,6 +23,9 @@ const store = createStore({
             console.log("测试一下vueX",val)
             state.time = val
 
+        },
+        search(state,val){
+            state.search = val
         }
     }
 })

@@ -56,6 +56,7 @@ export default {
 
                     })
                   let a = All.toFixed(2)
+                  let c = num.toFixed(0)
                     res.arr.push({
                         time:"总计",
                         num:num,
