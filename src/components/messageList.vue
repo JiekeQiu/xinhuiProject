@@ -56,7 +56,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="200px">
+        <el-table-column label="操作">
           <template #default="scope">
             <el-button size="small" @click="handleEdit(scope.row)">修改</el-button>
             <el-button size="small" @click="handleSubmit(scope.row)">保存</el-button>
