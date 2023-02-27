@@ -5,7 +5,7 @@
             <el-table-column label="客户名称" prop="name" width="120px"></el-table-column>
             <el-table-column label="送货日期" prop="time" width="120px"></el-table-column>
             <el-table-column label="订单号" prop="No" width="120px"></el-table-column>
-            <el-table-column label="金额" prop="AllMoney" width="200px"></el-table-column>
+            <el-table-column label="金额" prop="AllMoney" ></el-table-column>
         </el-table>
         <div v-show="this.$store.state.flag">
             <info-search @search="search"></info-search>
@@ -44,8 +44,22 @@ export default {
                     let list_msg = JSON.stringify(res.arr)
                     // let msg = JSON.stringify(val)
                     localStorage.setItem("list_msg",list_msg)
+                    console.log("擦洗",res.arr)
+                    // 把内容转换成我想要的
+                    let arrList = []
+                    res.arr.forEach(item=>{
+                        let obj = {
+                            "送货日期":item.time,
+                            "送货单号":item.No,
+                            "客户名称":item.name,
+                            "金额":item.AllMoney
+                        }
+                        arrList.push(obj)
+                        
+                    })
                     // localStorage.setItem("msg",msg)
-                    this.$store.commit("increment1",this.list_msg)
+                    console.log("这里导出的是",arrList)
+                    this.$store.commit("increment1",arrList)
                 }else if(res.state===404){
                      this.$message({
                         type:"warning",

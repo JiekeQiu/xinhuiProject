@@ -10,7 +10,7 @@
             <el-table-column label="数量" prop="num" width="100px"></el-table-column>
             <el-table-column label="单价" prop="money" width="100px"></el-table-column>
             <el-table-column label="总金额" prop="All" width="100px"></el-table-column>
-            <el-table-column label="备注" prop="remark" width="140px"></el-table-column>
+            <el-table-column label="备注" prop="remark"></el-table-column>
         </el-table>
         <div v-show="this.$store.state.flag">
             <info-search @search="search"></info-search>
@@ -66,7 +66,25 @@ export default {
                     this.$store.commit("isTime",val)
                     let list = JSON.stringify(res.arr)
                     localStorage.setItem("list",list)
-                    this.$store.commit("increment1",this.info_list)
+                     // 把内容转换成我想要的
+                     let arrList = []
+                    res.arr.forEach(item=>{
+                        let obj = {
+                            "送货日期":item.time,
+                            "送货单号":item.No,
+                            "客户名称":item.username,
+                            "产品名称":item.name,
+                            "产品规格":item.typeNmae,
+                            "订单编号":item.unit,
+                            "数量":item.num,
+                            "单价":item.money,
+                            "总金额":item.All,
+                            "备注":item.remark,
+                        }
+                        arrList.push(obj)
+                        
+                    })
+                    this.$store.commit("increment1",arrList)
                 }else if(res.state===404){
                     // 没有查到相应数据
                     this.$message({

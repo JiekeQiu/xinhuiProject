@@ -90,7 +90,7 @@ export default {
       DataAll: [],
       num:0,
        lister:null,//当前显示的数据
-      total:1000,//总条数
+      total:0,//总条数
       pageIndex:1,//当前页数
       pageSize:10,//一页展示10条
     };
@@ -196,6 +196,9 @@ export default {
             })
 
           }
+        }else if(res.status==404){
+          console.log("没有")
+          this.total = 0
         }
       });
       // 过滤筛选满足选项框的条件

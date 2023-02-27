@@ -20,11 +20,11 @@ const store = createStore({
             state.list_msg = val
         },
         isTime(state,val){
-            console.log("测试一下vueX",val)
             state.time = val
 
         },
         search(state,val){
+            console.log("测试一下vueX",val)
             state.search = val
         }
     }

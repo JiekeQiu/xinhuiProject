@@ -123,15 +123,19 @@ export default {
         },
         // 导出表格
         download(){
-            // let jsonData = this.$store.state.list_msg
+           
+            // let obj = this.$store.state.search
+            // obj.title = this.$route.meta.title
+            
+            // let jsonData = JSON.stringify(obj)
+
+            // window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
+
             let jsonData = JSON.stringify(this.$store.state.list_msg)
             let obj = {}
             obj.data = jsonData
-            console.log("需要导出的内容",obj)
-            getAxios('/exportfile',obj).then(res=>{
-                console.log("打印结果",res)
-                // window.open()
-            })
+            console.log("需要导出的内容",jsonData)
+            window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
 //              // 列标题
 //         let str = '<caption>鹰潭市新辉眼镜有限公司</caption><tr><td>客户名称</td><td>日期</td><td>总数量</td><td>总金额</td></tr>';
 //         // 循环遍历，每行加入tr标签，每个单元格加td标签
