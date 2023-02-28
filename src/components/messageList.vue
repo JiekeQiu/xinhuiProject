@@ -148,9 +148,10 @@ export default {
         address: row.address,
         Contact: row.Contact,
         phone: row.phone,
-        invoke: row.invoke
-
+        invoke: row.invoke,
+        _id:row._id
       }
+      console.log("传参",params)
       getAxios("/searchMsg",params).then(res=>{
         console.log(res)
         if(res.state==200){

@@ -7,6 +7,8 @@
         <el-menu-item :index="idx+'-'+1+'-'+1" route="goto">{{data[0][1].name}}</el-menu-item>
         <el-menu-item :index="idx+'-'+1+'-'+2">{{data[0][2].name}}</el-menu-item>
         <el-menu-item :index="idx+'-'+1+'-'+3" v-if="title=='成品仓库'">{{data[0][3].name}}</el-menu-item>
+        <el-menu-item :index="idx+'-'+1+'-'+3" v-if="title=='原料仓库'">{{data[0][3].name}}</el-menu-item>
+        <el-menu-item :index="idx+'-'+1+'-'+3" v-if="title=='五金仓库'">{{data[0][3].name}}</el-menu-item>
         <el-menu-item :index="idx+'-'+1+'-'+3" v-if="title=='账单'">{{data[0][3].name}}</el-menu-item>
       </el-sub-menu>
       <el-sub-menu :index="idx+'-'+2">
@@ -44,6 +46,8 @@ export default {
       this.idx = "3";
     }else if(this.title=="账单"){
       this.idx = "4"
+    }else if(this.title=="客户订单"){
+      this.idx = "5"
     }
   }
 };
