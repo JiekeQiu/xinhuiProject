@@ -44,22 +44,7 @@ export default {
                     let list_msg = JSON.stringify(res.arr)
                     // let msg = JSON.stringify(val)
                     localStorage.setItem("list_msg",list_msg)
-                    console.log("擦洗",res.arr)
-                    // 把内容转换成我想要的
-                    let arrList = []
-                    res.arr.forEach(item=>{
-                        let obj = {
-                            "送货日期":item.time,
-                            "送货单号":item.No,
-                            "客户名称":item.name,
-                            "金额":item.AllMoney
-                        }
-                        arrList.push(obj)
-                        
-                    })
-                    // localStorage.setItem("msg",msg)
-                    console.log("这里导出的是",arrList)
-                    this.$store.commit("increment3",arrList)
+                  
                     this.$store.commit("increment1",res.arr)
                 }else if(res.state===404){
                      this.$message({

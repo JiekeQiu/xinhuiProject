@@ -121,48 +121,20 @@ export default {
         },
         // 导出表格
         download(){
-           
-            // let obj = this.$store.state.search
-            // obj.title = this.$route.meta.title
+            let obj = this.$store.state.search
+            obj.title = this.$route.meta.title
             
-            // let jsonData = JSON.stringify(obj)
+            let jsonData = JSON.stringify(obj)
 
             // window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
 
-            let jsonData = JSON.stringify(this.$store.state.listMsg)
-            let obj = {}
-            obj.data = jsonData
+            // let jsonData = JSON.stringify(this.$store.state.listMsg)
+            console.log("看看这个书四年",this.$store.state.search)
+          
             console.log("需要导出的内容",jsonData)
-            window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
-//              // 列标题
-//         let str = '<caption>鹰潭市新辉眼镜有限公司</caption><tr><td>客户名称</td><td>日期</td><td>总数量</td><td>总金额</td></tr>';
-//         // 循环遍历，每行加入tr标签，每个单元格加td标签
-//         for(let i = 0 ; i < jsonData.length ; i++ ){
-//             str+='<tr>';
-//             for(const key in jsonData[i]){
-//                 // 增加  为了不让表格显示科学计数法或者其他格式
-//                 str+=`<td>${ jsonData[i][key] + '  '}</td>`;    
-//             }
-//             str+='</tr>';
-//         }
-//         // Worksheet名
-//         const worksheet = 'Sheet1'
-//         const uri = 'data:application/vnd.ms-excel;base64,';
-//   
-//         // 下载的表格模板数据
-//         const template = `<html xmlns:o="urn:schemas-microsoft-com:office:office"
-//         xmlns:x="urn:schemas-microsoft-com:office:excel"
-//         xmlns="http://www.w3.org/TR/REC-html40">
-//         <head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
-//         <x:Name>${worksheet}</x:Name>
-//         <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>
-//         </x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
-//         </head><body><table>${str}</table></body></html>`;
-//         let base64 = s => window.btoa(unescape(encodeURIComponent(s)));
+            // window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
+            window.open(`http://47.122.37.166:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
 
-//         // 下载模板
-//         window.location.href = uri + base64(template);
-//         // 输出base64编码
         }
     },
     

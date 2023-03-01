@@ -6,7 +6,7 @@
         cellspacing="0"
         cellpadding="0"
         style="font-size:9pt;"
-        width="900px"
+        width="1040px"
         align="center"
         class="table_box"
       >
@@ -46,8 +46,8 @@
             <td>备注</td>
           </tr>
            <tr v-show="this.$route.meta.title=='客户订单总金额'">
-            <td>客户名称</td>
             <td>日期</td>
+            <td>客户名称</td>
             <td>总数量</td>
             <td>总金额</td>
           </tr>
@@ -182,8 +182,8 @@ export default {
     border:none;
 }
 .table_box td {
-  height: 30px;
-  font-size: 14px;
+  height: 40px;
+  font-size: 20px;
   border:1px solid #000;
 }
 .foot_msg {
@@ -198,5 +198,9 @@ export default {
   input {
     display: none;
   }
+  table{
+    font-size: 100px;
+  }
+  
 }
 </style>
