@@ -71,32 +71,29 @@ export default {
                 let user = localStorage.getItem("user")
                 let username = JSON.parse(user).username
                 this.obj.username = username
-                console.log("看看电视",this.$store.state)
                 let len = this.$store.state.list_msg.length
                 let time = ''
                 let date = null
                 let timeStart = null
                 let timeEnd = null
                 if(this.$store.state.list_msg[0].time){
-                    timeStart = this.$store.state.time.timeStart.substring(5,10).replace('-','月')+'日'
-                    timeEnd = this.$store.state.time.timeEnd.substring(5,10).replace('-','月')+'日'
-                    console.log("可以这个拿到时间数据",timeEnd)
+                    timeStart = this.$store.state.list_msg[len-2].time.substring(5,10).replace('-','月')+'日'
+                    timeEnd = this.$store.state.list_msg[0].time.substring(5,10).replace('-','月')+'日'
 
                 //    time = this.$store.state.list_msg[0].time.substring(0,7).replace('-','年')
                 //     date = this.$store.state.list_msg[len-2].time.substring(0,7).replace('-','年')
 
                 }else{
                     
-                    // time = this.$store.state.list_msg[0].date.substring(0,7).replace('-','年')
-                    // date = this.$store.state.list_msg[len-2].date.substring(0,7).replace('-','年')
+                    time = this.$store.state.list_msg[0].date.substring(0,7).replace('-','年')
+                    date = this.$store.state.list_msg[len-2].date.substring(0,7).replace('-','年')
                 }
                 let dataList = this.$store.state.list_msg
-                console.log("datalist",dataList.length)
+                console.log("datalist",dataList)
                 let name=""
                 for(let i=0;i<dataList.length-1;i++){
-                    if(dataList[0].username==dataList[i].username){
-                    console.log("data")
-                       name = dataList[0].username
+                    if(dataList[0].name==dataList[i].name){
+                       name = dataList[0].name
                     }else{
                         console.log("看技术")
                         return name = ''
@@ -108,6 +105,7 @@ export default {
                 this.obj.name = name
                 this.obj.timeEnd = timeEnd
                 this.obj.title = title
+                console.log("看看",this.obj)
             // }else if(this.$route.meta.title=="客户订单金额"){
 
             // }
@@ -131,7 +129,7 @@ export default {
 
             // window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
 
-            let jsonData = JSON.stringify(this.$store.state.list_msg)
+            let jsonData = JSON.stringify(this.$store.state.listMsg)
             let obj = {}
             obj.data = jsonData
             console.log("需要导出的内容",jsonData)

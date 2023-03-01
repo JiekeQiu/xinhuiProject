@@ -8,7 +8,8 @@ const store = createStore({
             flag:true,
             list_msg:[],
             time:{},
-            search:{}
+            search:{},
+            listMsg:[]
         }
     },
     mutations:{
@@ -18,9 +19,14 @@ const store = createStore({
         increment1(state,val){
             state.flag = false;
             state.list_msg = val
+            console.log("导出",val)
+        },
+        increment3(state,val){
+            state.flag = false;
+            state.listMsg = val
         },
         isTime(state,val){
-            state.time = val
+            state.time = val 
 
         },
         search(state,val){

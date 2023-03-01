@@ -80,11 +80,12 @@ export default {
                             "单价":item.money,
                             "总金额":item.All,
                             "备注":item.remark,
-                        }
+                        } 
                         arrList.push(obj)
-                        
+
                     })
-                    this.$store.commit("increment1",arrList)
+                    this.$store.commit("increment1",res.arr)
+                    this.$store.commit("increment3",arrList)
                 }else if(res.state===404){
                     // 没有查到相应数据
                     this.$message({

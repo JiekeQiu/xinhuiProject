@@ -75,10 +75,11 @@
         </tbody>
          <tbody style="text-align:center;" v-show="this.$route.meta.title=='客户订单总金额'">
           <tr v-for="item in this.$store.state.list_msg" >
-            <td>{{item.username}}</td>
-            <td>{{item.time}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.name}}</td>
             <td>{{item.num}}</td>
             <td>{{item.money}}</td>
+            
           </tr>
         </tbody>
         <!-- <tfoot style="display:table-footer-group;font-weight:bold"> -->
@@ -118,7 +119,7 @@ export default {
     };
   },
   mounted(){
-    console.log("拿到list",this.$store.state)
+    console.log("拿到list",this.$store.state.list_msg)
   },
   methods:{
       goback(){

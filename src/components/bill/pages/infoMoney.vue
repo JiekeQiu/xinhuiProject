@@ -59,7 +59,8 @@ export default {
                     })
                     // localStorage.setItem("msg",msg)
                     console.log("这里导出的是",arrList)
-                    this.$store.commit("increment1",arrList)
+                    this.$store.commit("increment3",arrList)
+                    this.$store.commit("increment1",res.arr)
                 }else if(res.state===404){
                      this.$message({
                         type:"warning",

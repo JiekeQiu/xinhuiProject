@@ -65,7 +65,8 @@ export default {
                         arrList.push(obj)
                         
                     })
-                    this.$store.commit("increment1",arrList)
+                    this.$store.commit("increment3",arrList)
+                    this.$store.commit("increment1",this.list)
 
 
 
