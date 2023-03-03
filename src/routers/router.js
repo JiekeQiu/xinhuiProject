@@ -66,10 +66,24 @@ const routes = [
                 meta:{title:"入库明细"}
             },
             {
-                path:'material',
-                component: () => import(/* webpackChunkName: "material" */ '../components/material.vue'),
-                meta:{title:"原料入库"}
-
+                path:"material",
+                name:"material",
+                component: () => import(/* webpackChunkName: "material" */ '../components/material/common/home.vue'),
+                meta:{ title:"原料仓库"},
+                children:[
+                    {
+                        path:"materialhistory",
+                        name:'materialhistory',
+                        component: () => import(/* webpackChunkName: "materialhistory" */ '../components/material/pages/materialHistory.vue'),
+                        meta:{title:'入库明细'} 
+                      },
+                    {
+                        path:"materiallist",
+                        name:'materiallist',
+                        component: () => import(/* webpackChunkName: "materialList" */ '../components/material/pages/materialList.vue'),
+                        meta:{title:'入库单'} 
+                      }
+                ]
             },{
                 path:'buhuo',
                 component: () => import(/* webpackChunkName: "buhuo" */ '../components/buhuo.vue'),

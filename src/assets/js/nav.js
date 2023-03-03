@@ -30,15 +30,9 @@ export function heandleSelect(key, keyPath) {
         });
         window.open(routerData.href, "_blank");
     }else if(key == '2-1-1'){
-        let routerData = this.$router.resolve({
-            path: "/home/material"
-        });
-        window.open(routerData.href, "_blank");
+        this.$router.push("/home/material/materiallist")
     }else if(key == '2-1-2'){
-        let routerData = this.$router.resolve({
-            path: "/home/c"
-        });
-        window.open(routerData.href, "_blank");
+        this.$router.push("/home/material/materialhistory")
     }else if(key == '4-1-1'){
         // let routerData = this.$router.resolve({
         //     path: "/home/bill/infolist"

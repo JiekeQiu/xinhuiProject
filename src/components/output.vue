@@ -451,52 +451,6 @@ export default {
           tableData: dataArr
         };
         if (state != 2) {
-          // console.log("这是NO", dataList);
-          // this.$alert("是否需要保存？","温馨提示：",{
-          //   confirmButtonText: "确定",
-          //   callback: action =>{
-
-          //     let data = localStorage.getItem("productRuleForm")
-          //     getAxios('/lose',{params:data}).then(res=>{
-          //     /**
-          //     * 如果result的结果为false则可以出库，否则不能出库
-          //     * state状态码（返回给前端的）
-          //     * 200：出库成功
-          //     * 203：数据更新出错
-          //     * 404：没有找到该产品或产品还没入库
-          //     */
-          //       if(res.state=="200"){
-          //         // 出库成功
-          //         getAxios('/save',param).then(res=>{
-          //           if(res.state=="200"){
-          //             // 这里是保存
-          //             this.message("success","出库成功",4000)
-          //             this.$router.push("/home/output/cklist")
-          //           }else if(res.state=="404"){
-          //             this.message("error","出库失败",4000)
-          //           }
-          //         })
-          //       }else if(res.state=="203"){
-          //         // 数据更新出错
-          //         res.res.forEach(item=>{
-          //           let msg = item.name+item.typename+item.msg
-          //           console.log("看看",msg)
-          //           this.message('warning',msg,8000)
-          //         })
-          //       }else if(res.state=="404"){
-          //         //没有找到该产品或产品还没入库
-          //         res.res.forEach(item=>{
-          //           let msg = item.name+item.typename+item.msg
-          //           console.log("看看",msg)
-          //           this.message('warning',msg,8000)
-          //         })
-          //           window.open("#/home/received")
-          //         // this.$router.push("/home/received")
-          //       }
-          //     })
-          //   }
-
-          // });
           this.$confirm("是否需要保存？", "温馨提示：", {
             confirmButtonText: "确定",
             cancelButtonText: "取消"

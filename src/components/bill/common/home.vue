@@ -126,14 +126,9 @@ export default {
             
             let jsonData = JSON.stringify(obj)
 
-            // window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
+            window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);//开发环境
 
-            // let jsonData = JSON.stringify(this.$store.state.listMsg)
-            console.log("看看这个书四年",this.$store.state.search)
-          
-            console.log("需要导出的内容",jsonData)
-            // window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
-            window.open(`http://47.122.37.166:18883/exportfile?data=${encodeURIComponent(jsonData)}`);
+            // window.open(`http://47.122.37.166:18883/exportfile?data=${encodeURIComponent(jsonData)}`);//上线环境
 
         }
     },

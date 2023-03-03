@@ -283,6 +283,7 @@ export default {
       labelPosition: "right",
       formLabelAlign: {
         flag: false,
+        _id:"",
         No: "",
         bianhao: "",
         name: "",
@@ -314,6 +315,7 @@ export default {
     if (flag == "false" && str) {
       //  修改页面渲染
       let data = JSON.parse(obj[0].tableData);
+      this.formLabelAlign._id = obj[0]._id;
       this.formLabelAlign.No = obj[0].No;
       this.formLabelAlign.name = obj[0].name;
       this.formLabelAlign.bianhao = obj[0].bianhao;

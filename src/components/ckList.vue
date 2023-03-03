@@ -150,6 +150,7 @@ export default {
       goodList: [],
       labelPosition: "right",
       formLabelAlign: {
+        _id:"",
         No: "",
         bianbao: "",
         name: "",

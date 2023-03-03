@@ -8,9 +8,9 @@ module.exports = defineConfig({
     port: 8080,
     proxy:{
       "/business-admin": {    //需要代理的路径
-        target: 'http://47.122.37.166:18883',
+        // target: 'http://47.122.37.166:18883',
     
-        // target: 'http://localhost:18883',//本地测试
+        target: 'http://localhost:18883',//本地测试
         changeOrigin: true,
         pathRewrite: {
           '^/business-admin': ''
