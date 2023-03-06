@@ -33,30 +33,17 @@ export function heandleSelect(key, keyPath) {
         this.$router.push("/home/material/materiallist")
     }else if(key == '2-1-2'){
         this.$router.push("/home/material/materialhistory")
-    }else if(key == '4-1-1'){
-        // let routerData = this.$router.resolve({
-        //     path: "/home/bill/infolist"
-        // });
-        // window.open(routerData.href, "_blank");
+    }else if(key == '2-1-3'){
+        this.$router.push("/home/material/materialgoods")
+    }
+    else if(key == '4-1-1'){
         this.$router.push('/home/bill/infolist')
 
     }else if(key == '4-1-2'){
-        // let routerData = this.$router.resolve({
-        //     path: "/home/bill/infomoney"
-        // });
-        // window.open(routerData.href, "_blank");
         this.$router.push('/home/bill/infomoney')
     }else if(key == '4-1-3'){
-        // let routerData = this.$router.resolve({
-        //     path: "/home/bill/infomoney"
-        // });
-        // window.open(routerData.href, "_blank");
         this.$router.push('/home/bill/infomonthlist')
     }else if(key == '4-2-1'){
-        // let routerData = this.$router.resolve({
-        //     path: "/home/bill/infomoney"
-        // });
-        // window.open(routerData.href, "_blank");
         this.$router.push('/home/bill/billmoney')
     }
 }

@@ -19,7 +19,6 @@ export default {
     },
     watch:{
         $route(newValue,oldValue){
-            console.log("监听",newValue)
             if(newValue.meta.title!="入库单"){
                 this.show = !this.show
             }else{

@@ -79,21 +79,22 @@ export default {
                 if(this.$store.state.list_msg[0].time){
                     timeStart = this.$store.state.list_msg[len-2].time.substring(5,10).replace('-','月')+'日'
                     timeEnd = this.$store.state.list_msg[0].time.substring(5,10).replace('-','月')+'日'
+                    time = this.$store.state.list_msg[0].time.substring(0,7).replace('-','年')
+                    date = this.$store.state.list_msg[len-2].time.substring(0,7).replace('-','年')
+                    console.log("查看这个",time,date)
 
-                //    time = this.$store.state.list_msg[0].time.substring(0,7).replace('-','年')
-                //     date = this.$store.state.list_msg[len-2].time.substring(0,7).replace('-','年')
 
                 }else{
                     
                     time = this.$store.state.list_msg[0].date.substring(0,7).replace('-','年')
-                    date = this.$store.state.list_msg[len-2].date.substring(0,7).replace('-','年')
+                    time = this.$store.state.list_msg[len-2].date.substring(0,7).replace('-','年')
                 }
                 let dataList = this.$store.state.list_msg
                 console.log("datalist",dataList)
                 let name=""
                 for(let i=0;i<dataList.length-1;i++){
-                    if(dataList[0].name==dataList[i].name){
-                       name = dataList[0].name
+                    if(dataList[0].username==dataList[i].username){
+                       name = dataList[0].username
                     }else{
                         console.log("看技术")
                         return name = ''
@@ -104,6 +105,8 @@ export default {
                 this.obj.time = timeStart
                 this.obj.name = name
                 this.obj.timeEnd = timeEnd
+                this.obj.date = date
+                this.obj.times = time
                 this.obj.title = title
                 console.log("看看",this.obj)
             // }else if(this.$route.meta.title=="客户订单金额"){
@@ -126,9 +129,9 @@ export default {
             
             let jsonData = JSON.stringify(obj)
 
-            window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);//开发环境
+            // window.open(`http://localhost:18883/exportfile?data=${encodeURIComponent(jsonData)}`);//开发环境
 
-            // window.open(`http://47.122.37.166:18883/exportfile?data=${encodeURIComponent(jsonData)}`);//上线环境
+            window.open(`http://47.122.37.166:18883/exportfile?data=${encodeURIComponent(jsonData)}`);//上线环境
 
         }
     },
