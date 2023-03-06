@@ -113,7 +113,8 @@ export default {
   methods: {
     search() {
       let params = {
-        name:this.formInline.user
+        name:this.formInline.user,
+        k:1
       }
       getAxios("/searchMsg",params).then(res=>{
         if(res.state==200){
@@ -143,13 +144,14 @@ export default {
     // 保存修改
     handleSubmit(row) {
      let params = {
-        No: row.No,
+        No: row.No, 
         name: row.name,
         address: row.address,
         Contact: row.Contact,
         phone: row.phone,
         invoke: row.invoke,
-        _id:row._id
+        _id:row._id,
+        k:2
       }
       console.log("传参",params)
       getAxios("/searchMsg",params).then(res=>{

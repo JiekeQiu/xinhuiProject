@@ -1,9 +1,9 @@
 <template>
-    <view-page @queryParam="btn"></view-page>
+    <view-page></view-page>
 </template>
 <script>
 import '../../../assets/css/commo.css'
-import viewPage from '../components/viewPage.vue';
+import viewPage from '../../material/components/viewPage.vue';
 export default {
     components:{
         viewPage
@@ -13,11 +13,9 @@ export default {
             list: []
         }
     },
-   methods:{
-    btn(val){
-            console.log("有没有传过来",val)
-            
-        }
-   }
+    mounted() {
+
+
+    }
 }
 </script>

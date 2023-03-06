@@ -75,22 +75,48 @@ const routes = [
                         path:"materialhistory",
                         name:'materialhistory',
                         component: () => import(/* webpackChunkName: "materialhistory" */ '../components/material/pages/materialHistory.vue'),
-                        meta:{title:'入库明细'} 
+                        meta:{title:'原料入库明细'} 
                     },
                     {
                         path:"materiallist",
                         name:'materiallist',
                         component: () => import(/* webpackChunkName: "materialList" */ '../components/material/pages/materialList.vue'),
-                        meta:{title:'入库单'} 
+                        meta:{title:'原料入库单'} 
                     },
                     {
                         path:"materialgoods",
                         name:'materialgoods',
                         component: () => import(/* webpackChunkName: "materialgoods" */ '../components/material/pages/materialGoods.vue'),
-                        meta:{title:'库存盘点'} 
+                        meta:{title:'原料库存盘点'} 
                     }
                 ]
             },{
+                path:"hardware",
+                name:"hardware",
+                component: () => import(/* webpackChunkName: "hardware" */ '../components/hardware/common/home.vue'),
+                meta:{ title:"五金仓库"},
+                children:[
+                    {
+                        path:"hardwarehistory",
+                        name:'hardwarehistory',
+                        component: () => import(/* webpackChunkName: "hardwarehistory" */ '../components/hardware/pages/hardwareHistory.vue'),
+                        meta:{title:'五金入库明细'} 
+                    },
+                    {
+                        path:"hardwarelist",
+                        name:'hardwarelist',
+                        component: () => import(/* webpackChunkName: "hardwareList" */ '../components/hardware/pages/hardwareList.vue'),
+                        meta:{title:'五金入库单'} 
+                    },
+                    {
+                        path:"hardwaregoods",
+                        name:'hardwaregoods',
+                        component: () => import(/* webpackChunkName: "hardwaregoods" */ '../components/hardware/pages/hardwareGoods.vue'),
+                        meta:{title:'五金库存盘点'} 
+                    }
+                ]
+            }
+            ,{
                 path:'buhuo',
                 component: () => import(/* webpackChunkName: "buhuo" */ '../components/buhuo.vue'),
                 meta:{title:"入库基础信息"}
