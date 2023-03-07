@@ -66,6 +66,7 @@
 .el-table  td, .el-table th.is-leaf  {
     border-bottom: 1px solid #000!important;
     /* height: 30px !important; */
+
 }
  
 
@@ -75,4 +76,10 @@
     font-size: 18px;
 }
 
+.el-table td.el-table__cell div{
+    font-size: 16px;
+    color: black;
+
+
+}
   

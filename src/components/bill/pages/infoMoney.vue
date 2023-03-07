@@ -58,7 +58,6 @@ export default {
      created(){
         // 如果有查询内容刷新这不会跳出搜索弹窗
         let list = localStorage.getItem("list_msg")
-        console.log("加速度",this.$store.state.list_msg)
         if(list){
             this.list_msg = JSON.parse(list)
             if(this.list_msg.length>0){

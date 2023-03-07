@@ -35,6 +35,10 @@ export function heandleSelect(key, keyPath) {
         this.$router.push("/home/material/materialhistory")
     }else if(key == '2-1-3'){
         this.$router.push("/home/material/materialgoods")
+    }else if(key == '2-2-1'){
+        this.$router.push("/home/material/delivery")
+    }else if(key == '2-2-2'){
+        this.$router.push("/home/material/deliveryhistory")
     }
     else if(key == '3-1-1'){
         this.$router.push("/home/hardware/hardwarelist")

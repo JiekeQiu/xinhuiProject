@@ -88,7 +88,18 @@ const routes = [
                         name:'materialgoods',
                         component: () => import(/* webpackChunkName: "materialgoods" */ '../components/material/pages/materialGoods.vue'),
                         meta:{title:'原料库存盘点'} 
-                    }
+                    },
+                    {
+                        path:"delivery",
+                        name:'delivery',
+                        component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/delivery.vue'),
+                        meta:{title:'原料出库单'} 
+                    },{
+                        path:"deliveryhistory",
+                        name:'deliveryhistory',
+                        component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/deliveryHistory.vue'),
+                        meta:{title:'原料出库明细'} 
+                    },
                 ]
             },{
                 path:"hardware",
