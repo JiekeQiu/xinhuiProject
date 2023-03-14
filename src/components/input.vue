@@ -3,7 +3,7 @@
     <el-form ref="form" label-width="90px" class="box"  id="selectForm">
       <el-form-item label="产品型号">
         <el-select
-          v-model="nameValue"
+          v-model.trim="nameValue"
           filterable
           remote
           placeholder="请输入型号"
@@ -24,7 +24,7 @@
 
       <el-form-item label="产品规格">
         <el-select
-          v-model="typeNameValue"
+          v-model.trim="typeNameValue"
           filterable
           remote
           placeholder="请输入规格"
@@ -44,7 +44,7 @@
       </el-form-item>
       <el-form-item label="数量(副)" prop="num" style="width:198.8">
         <el-input
-          v-model="ruleForm.num"
+          v-model.trim="ruleForm.num"
           placeholder="请输入副数"
           autofocus
           type="text"
@@ -54,7 +54,7 @@
       </el-form-item>
       <el-form-item label="左手(只)" prop="numL" style="width:198.8">
         <el-input
-          v-model="ruleForm.numL"
+          v-model.trim="ruleForm.numL"
           placeholder="请输入左手只数"
           autofocus
           type="text"
@@ -64,7 +64,7 @@
       </el-form-item>
       <el-form-item label="右手(只)" prop="numR" style="width:198.8">
         <el-input
-          v-model="ruleForm.numR"
+          v-model.trim="ruleForm.numR"
           placeholder="请输入右手只数"
           autofocus
           type="text"

@@ -228,7 +228,6 @@ export default {
               all: row.name + row.typename
             };
             getAxios("/findHistory", p).then(res => {
-              console.log('我要看看',res)
               if (res.status == 404) {
                 this.$confirm(
                   row.name + row.typename + "为新产品, 是否入库?",

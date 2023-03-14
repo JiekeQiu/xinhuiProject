@@ -34,6 +34,7 @@ app.use(ElementPlus,{ locale })
 app.use(Avue)
 app.use(Store)
 // app.use(preventReClick)
+// app.use(preventReClick)
 // 全局挂载路由
 app.use(router)
 app.mount('#app')

@@ -90,6 +90,12 @@ const routes = [
                         meta:{title:'原料库存盘点'} 
                     },
                     {
+                        path:"information",
+                        name:'information',
+                        component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/information.vue'),
+                        meta:{title:'基础信息维护'} 
+                    },
+                    {
                         path:"delivery",
                         name:'delivery',
                         component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/delivery.vue'),
@@ -99,7 +105,7 @@ const routes = [
                         name:'deliveryhistory',
                         component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/deliveryHistory.vue'),
                         meta:{title:'原料出库明细'} 
-                    },
+                    }
                 ]
             },{
                 path:"hardware",
