@@ -77,7 +77,7 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="money" label="金额">
+        <el-table-column prop="money" label="金额" width="100">
           <template #default="scope">
             <span v-if="scope.row.flag">
               <el-input v-model.trim="scope.row.money"></el-input>
@@ -100,7 +100,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="operation" label="仓管" width="100"></el-table-column>
-        <el-table-column prop="remark" label="备注">
+        <el-table-column prop="remark" label="备注" width="120">
           <template #default="scope">
             <span v-if="scope.row.flag">
               <el-input v-model.trim="scope.row.remark"></el-input>
