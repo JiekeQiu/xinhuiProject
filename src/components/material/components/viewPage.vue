@@ -9,7 +9,8 @@
         <el-row style="margin-bottom: 20px;">
             <el-col :span="3" :offset="3">
                 <el-container>
-                    <span style="display:inline-block;width:120px;line-height: 30px;font-size: 18px;">{{$route.meta.title=="原料入库单"?"来源：":"领取人："}}</span>
+                    <span style="display:inline-block;width:120px;line-height: 30px;font-size: 18px;">{{ $route.meta.title
+                        == "原料入库单" ? "来源：" : "领取人：" }}</span>
                     <el-input v-model="data.username"></el-input>
                 </el-container>
             </el-col>
@@ -18,14 +19,14 @@
                 <span>{{ data.time }}</span>
             </el-col>
         </el-row>
-        <el-row>
+        <el-row v-show="$route.meta.title == '原料入库单' ? true : false">
             <el-col :span="16" :offset="3">
                 <el-form :model="data" ref="productRuleForm" @keydown.enter="addTable">
                     <el-table :data="data.tableData" border style="width: 100%" @row-dblclick="singleShot">
-                        <el-table-column prop="name" label="型号" width="100">
+                        <el-table-column prop="name" label="型号" width="150">
                             <template #default="scope">
                                 <el-form-item :prop="'tableData.' + scope.$index + '.name'">
-                                    <el-input v-model.trim="scope.row.name" ref="No14" @keydown.right="inputDown('No14')"
+                                    <el-input v-model.trim="scope.row.name" ref="No1" @keydown.right="inputDown('No1')"
                                         @blur="getAddress"></el-input>
                                 </el-form-item>
                             </template>
@@ -33,9 +34,107 @@
                         <el-table-column prop="typeName" label="规格" width="150">
                             <template #default="scope">
                                 <el-form-item :prop="'tableData.' + scope.$index + '.typeName'">
-                                    <el-input v-model.trim="scope.row.typeName" ref="No15"
-                                        @keydown.right="inputDown('No15')" @keydown.left="inputDownLeft('No15')"
+                                    <el-input v-model.trim="scope.row.typeName" ref="No2"
+                                        @keydown.right="inputDown('No2')" @keydown.left="inputDownLeft('No2')"
                                         @blur="getAddress"></el-input>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column prop="num" label="数量">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.num'">
+                                    <el-input v-model.trim="scope.row.num" ref="No3" @keydown.right="inputDown('No3')"
+                                        @keydown.left="inputDownLeft('No3')" @blur="calculate"></el-input>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column prop="unit" label="单位" width="80">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.unit'">
+                                    <el-input v-model.trim="scope.row.unit" ref="No4" @keydown.right="inputDown('No4')"
+                                        @keydown.left="inputDownLeft('No4')"></el-input>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="price" label="单价" width="100">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.price'">
+                                    <el-input v-model.trim="scope.row.price" ref="No5" @keydown.right="inputDown('No5')"
+                                        @keydown.left="inputDownLeft('No5')" @blur="calculate"></el-input>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="money" label="金额" width="170">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.money'">
+                                    <el-input v-model.trim="scope.row.money" ref="No6" @keydown.right="inputDown('No6')"
+                                        @keydown.left="inputDownLeft('No6')"></el-input>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="address" label="仓位" width="170">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.address'">
+                                    <el-input v-model.trim="scope.row.address" ref="No7" @keydown.right="inputDown('No7')"
+                                        @keydown.left="inputDownLeft('No7')"></el-input>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="remark" label="备注" width="170">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.remark'">
+                                    <el-input v-model.trim="scope.row.remark" ref="No8"
+                                        @keydown.left="inputDownLeft('No8')"></el-input>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-form>
+            </el-col>
+            <el-col :span="2" :offset="1">
+                <el-container class="container-row">
+                    <el-container>
+                        <!-- <el-button type="primary" @click="btn" :disabled="!flag">数据提交</el-button> -->
+                        <el-button type="primary" @click="btn" :disabled="!flag">数据提交</el-button>
+                    </el-container>
+                </el-container>
+                <el-container class="container-row">
+                    <el-container>
+                        <!-- <el-button type="primary" @click="empty">清空数据</el-button> -->
+                    </el-container>
+                </el-container>
+            </el-col>
+            <el-col :span="6">
+                <div style="height: 100px;"></div>
+            </el-col>
+        </el-row>
+        <el-row v-show="$route.meta.title == '原料出库单' ? true : false">
+            <el-col :span="16" :offset="3">
+                <el-form :model="data" ref="productRuleForm" @keydown.enter="addTable">
+                    <el-table :data="data.tableData" border style="width: 100%" @row-dblclick="singleShot">
+                        <el-table-column prop="name" label="型号" width="150">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.name'">
+                                    <el-select v-model="scope.row.name" filterable remote reserve-keyword placeholder="请输入产品型号"
+                                        :remote-method="remoteMethod" :loading="loading" allow-create clearable ref="No14"
+                                        @keydown.right="inputDown('No14')" @change="getAddress">
+                                        <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                            :value="item.value"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="typeName" label="规格" width="150">
+                            <template #default="scope">
+                                <el-form-item :prop="'tableData.' + scope.$index + '.typeName'">
+                                    <el-select v-model="scope.row.typeName" filterable remote reserve-keyword placeholder="请输入产品规格"
+                                        :remote-method="remoteMethod" :loading="loading" allow-create clearable ref="No15"
+                                        @keydown.right="inputDown('No15')" @change="getAddress">
+                                        <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                            :value="item.value"></el-option>
+                                    </el-select>
                                 </el-form-item>
                             </template>
                         </el-table-column>
@@ -96,7 +195,7 @@
                 <el-container class="container-row">
                     <el-container>
                         <!-- <el-button type="primary" @click="btn" :disabled="!flag">数据提交</el-button> -->
-                        <el-button type="primary" @click="btn" :disabled="!flag" >数据提交</el-button>
+                        <el-button type="primary" @click="btn" :disabled="!flag">数据提交</el-button>
                     </el-container>
                 </el-container>
                 <el-container class="container-row">
@@ -109,7 +208,6 @@
                 <div style="height: 100px;"></div>
             </el-col>
         </el-row>
-
     </div>
 </template>
 <script>
@@ -121,41 +219,46 @@ export default {
     data() {
         return {
             queryParam: this.data,
-            // productRuleForm: {
-            //     tableData: [
-            //         {
-            //             name: "",
-            //             typeName: "",
-            //             num: null,
-            //             unit: "公斤",
-            //             price: null,
-            //             money: null,
-            //             address: "",
-            //             remark: ""
-            //         }
-            //     ]
-            // },
-
+            loading: false,
+            options: [],
+            tableData: [],
+            typeName: [],
+            list: [],
+            states: [],
+            
         }
     },
     methods: {
+        remoteMethod(query) {
+            if (query !== "") {
+                this.loading = true;
+                setTimeout(() => {
+                    this.loading = false;
+                    this.options = this.list.filter(item => {
+                        return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                    });
+                }, 200);
+            } else {
+                this.options = [];
+            }
+        },
         // 点击提交上传参数
         btn() {
             // this.$emit("queryParam", this.data)
-            console.log("看看",this.flag)
-            if(this.flag){
+            console.log("看看", this.flag)
+            if (this.flag) {
                 let user = localStorage.getItem("user")
                 let username = JSON.parse(user).username
                 this.data.operation = username
                 this.$emit("queryParam", this.data)
 
-            }else{
+            } else {
                 return
             }
             this.flag = true
-            setTimeout(()=>{
-                this.flag=false
-            },3000)
+            setTimeout(() => {
+                this.flag = false
+            }, 3000)
         },
         // 失去焦点计算总价
         calculate() {
@@ -172,8 +275,11 @@ export default {
              *      在name和typeName同时有值的情况下才能发起请求，这样可以减少请求次数
              * type:1表示查询仓位
              */
-            this.data.tableData.forEach((item, idx) => {
 
+            this.data.tableData.forEach((item, idx) => {
+                console.log('查看',this.tableData)
+                // this.data.tableData[idx].name = this.tableData
+                // this.data.tableData[idx].typeName = this.typeName
                 if (this.data.tableData[idx].name && this.data.tableData[idx].typeName) {
                     // 每次请求前清空仓位
                     // this.data.tableData[idx].address = ""
@@ -186,8 +292,8 @@ export default {
                         console.log(res.res)
                         if (res.state == 200) {
                             this.data.tableData[idx].address = res.res[0].address
-                        }else{
-                            this.data.tableData[idx].address=''
+                        } else {
+                            this.data.tableData[idx].address = ''
                         }
                         // else {
                         //     if (this.$route.meta.title == "原料入库单") {
@@ -236,7 +342,7 @@ export default {
         },
         // 批量入库
         empty() {
-           
+
         },
         // 回车新增一栏
         addTable() {
@@ -320,7 +426,24 @@ export default {
         let user = localStorage.getItem("user")
         let username = JSON.parse(user).username
         this.data.operation = username
-
+        getAxios("materialgood", { type: 5 }).then(res => {
+            this.list = res.res
+            res.res.map(itme => {
+                var a = itme.name;
+                var b = itme.typeName;
+                var c = itme.operating;
+                return this.states.splice(0, 0, a, b, c);
+            });
+            // 过滤重复的数据,这样下拉选项中就不会有太长的数据了
+            this.states = this.states.filter((item, idx, arr) => {
+                res = arr.indexOf(item) === idx;
+                return res;
+            });
+            this.list = this.states.map(item => {
+                //  console.log(item)
+                return { value: `${item}`, label: `${item}` };
+            });
+        })
     },
     computed: {
         flag: function () {

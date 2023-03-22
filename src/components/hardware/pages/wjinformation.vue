@@ -3,38 +3,57 @@
         <div class="interval">
             <h2 class="container-row font_title">新辉眼镜有限公司</h2>
             <h3 class="font_subheading">
-                {{ $route.meta.title }}
+                基础信息维护
             </h3>
         </div>
         <el-container class="container-row">
-            <div class="input-tip">材料名称：</div>
-            <div class="input-field">
-                <el-input autofocus v-model="searchValue.name"></el-input>
-            </div>
             <div class="input-tip">材料型号：</div>
             <div class="input-field">
-                <el-input v-model="searchValue.typeName"></el-input>
+                <el-input autofocus v-model.trim="searchValue.name"></el-input>
+            </div>
+            <div class="input-tip">材料规格：</div>
+            <div class="input-field">
+                <el-input v-model.trim="searchValue.typeName"></el-input>
             </div>
             <div class="input-tip"></div>
             <div class="input-field">
-                <el-button type="primary" style="font-size: 16px; color: #000;" @click="search" :disabled="disabled">搜&emsp;索</el-button>
-                <el-button type="primary" style="font-size: 16px; color: #000;" @click="back">返回详单</el-button>
-                <el-button type="primary" style="font-size: 16px; color: #000;" @click="msg">基础信息维护</el-button>
+                <el-button type="primary" style="font-size: 16px; color: #000;" :disabled="disabled"
+                    @click="search">搜&emsp;索</el-button>
+                    <el-button type="primary" style="font-size: 16px; color: #000;"
+                    @click="back">返回详单</el-button>
             </div>
         </el-container>
         <el-table border :data="goods">
             <el-table-column label="材料名称" prop="name"></el-table-column>
             <el-table-column label="材料型号" prop="typeName"></el-table-column>
-            <el-table-column label="数量" prop="num"></el-table-column>
-            <el-table-column label="单位" prop="unit"></el-table-column>
-            <el-table-column label="仓位" prop="address"></el-table-column>
-            <el-table-column label="补货提示" prop="">
+            <el-table-column label="库存下限" prop="compare">
                 <template #default="scope">
-                    <span style="color:red;font-size: 18px;" v-show="scope.row.flag">
-                        需要备货
+                    <span v-show="scope.row.flag ? false : true">
+                        {{ scope.row.compare }}
+                    </span>
+                    <span v-show="scope.row.flag ? true : false">
+                        <el-input v-model.trim="scope.row.compare"></el-input>
                     </span>
                 </template>
             </el-table-column>
+            <el-table-column label="仓位" prop="address">
+                <template #default="scope">
+                    <span v-show="scope.row.flag ? false : true">
+                        {{ scope.row.address }}
+                    </span>
+                    <span v-show="scope.row.flag ? true : false">
+                        <el-input v-model.trim="scope.row.address"></el-input>
+                    </span>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" prop="">
+                <template #default="scope">
+                    <el-button size="small" @click="handleEdit(scope.row)" :disabled="scope.row.flag">编辑</el-button>
+                    <el-button size="small" type="success" :disabled="scope.row.flag ? false : true"
+                        @click="save(scope.row, scope.$index)">保存</el-button>
+                </template>
+            </el-table-column>
+
         </el-table>
         <div>
             <el-pagination id="page" background layout="prev, pager, next" prev-text='上一页' next-text="下一页"
@@ -46,47 +65,39 @@
 <script>
 import '@/assets/css/commo.css'
 import { getAxios } from '@/assets/js/base';
+import { renderList } from 'vue';
 export default {
     data() {
         return {
             goods: [],
             total: 0,//总条数
             pageIndex: 1,//当前页数
-            pageSize: 10,//一页展示10条
+            pageSize: 10,//一页展示10条,
             searchValue: {
                 name: "",
                 typeName: ""
             },
-            isSearch: false,
-            DataAll: []
+            isSearch:false,
+            DataAll:[]
         }
     },
-    mounted() {
-        // 渲染页面
-        this.RenderList()
+    created() {
+        this.renderList()
     },
     methods: {
         // 点击页码跳转页面
         pageChange(pageIndex) {
             // this.historyList=[]
             let _that = this;
-            if (_that.isSearch) {
+            if(_that.isSearch){
                 if (_that.DataAll) {
                     if (_that.pageIndex) {
                         _that.pageIndex = pageIndex
                     }
-                    _that.goods=[]
-                    let list = _that.DataAll.slice((_that.pageIndex - 1) * _that.pageSize, _that.pageIndex * _that.pageSize)
-                    list.forEach(item => {
-                        if (item.num <= item.compare) {
-                            item.flag = true
-                        } else {
-                            item.flag = false
-                        }
-                        _that.goods.unshift(item) 
-                    })
+                    _that.goods = _that.DataAll.slice((_that.pageIndex - 1) * _that.pageSize, _that.pageIndex * _that.pageSize)
+                    
                 }
-            } else {
+            }else{
                 if (_that.goods) {
                     if (_that.pageIndex) {
                         _that.pageIndex = pageIndex
@@ -96,28 +107,33 @@ export default {
                         pageSize: this.pageSize,
                         type: 7
                     }
-                    _that.goods = []
                     getAxios('materialgood', param).then(res => {
                         if (res.state == 200) {
-                            // _that.goods = res.res
-                            res.res.forEach(item => {
-                                if (item.num <= item.compare) {
-                                    item.flag = true
-                                } else {
-                                    item.flag = false
-                                }
-                                _that.goods.unshift(item)
-                            })
-
+                            _that.goods = res.res
                         }
                     })
 
                 }
             }
         },
-        // 进入到基础信息维护界面
-        msg() {
-            this.$router.push("/home/hardware/wjinformation")
+        // 编辑
+        handleEdit(row) {
+            console.log(row.flag)
+            row.flag = !row.flag
+        },
+        // 保存
+        save(row, idx) {
+            row.type=1
+            getAxios("materialmessage", row).then(res => {
+                if (res.state == 200) {
+                    this.message(res.msg, "success")
+                    this.total = 0
+                    this.renderList()
+                } else {
+                    this.message(res.msg, "error")
+
+                }
+            })
         },
         // 搜索
         search() {
@@ -129,50 +145,19 @@ export default {
                     this.goods = []
                     this.DataAll = []
                     this.DataAll = res.res
-                    res.res.forEach(item => {
-                        if (item.num <= item.compare) {
-                            item.flag = true
-                        } else {
-                            item.flag = false
-                        }
-                        // arr.unshift(item)
-                    })
                     this.total = res.res.length
                     this.goods = this.DataAll.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize)
-                    
+
                 } else {
                     this.message(res.msg, "error")
                     this.goods = []
                 }
             })
         },
-        // 返回详情也
-        back() {
-            this.isSearch = false
-            this.total = 0
-            this.RenderList()
-        },
-        // 封装渲染页面
-        RenderList() {
-            getAxios("materialgood", {
-                type: 7,
-                pageIndex: this.pageIndex,
-                pageSize: this.pageSize
-            }).then(res => {
-                if (res.state == 200) {
-                    // let arr = []
-                    res.res.forEach(item => {
-                        if (item.num*1 <= item.compare*1) {
-                            item.flag = true
-                        } else {
-                            item.flag = false
-                        }
-                        // arr.unshift(item)
-                    })
-                    this.total = res.count
-                    this.goods = res.res.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize)
-                }
-            })
+        // 回到详单页
+        back(){
+            this.total=0
+            this.renderList()
         },
         // 封装消息提醒
         message(msg, type) {
@@ -181,8 +166,25 @@ export default {
                 type: type,
                 duration: 4000
             })
-
         },
+        //封装页面渲染
+        renderList() {
+            getAxios("materialgood", {
+                type: 7,
+                pageIndex: this.pageIndex,
+                pageSize: this.pageSize
+            }).then(res => {
+                if (res.state == 200) {
+                    let arr = []
+                    res.res.forEach(item => {
+                        item.flag = false
+                        arr.unshift(item)
+                    })
+                    this.total = res.count
+                    this.goods = arr.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize)
+                }
+            })
+        }
     },
     computed: {
         disabled() {

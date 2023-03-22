@@ -1,131 +1,174 @@
 <template>
   <div id="content-container" direction="vartical">
-    <div class="interval">
-      <h2 class="container-row font_title">新辉眼镜有限公司</h2>
-      <h3 class="font_subheading">
-        {{ $route.meta.title }}
-      </h3>
-    </div>
-    <el-container class="container-row">
-      <div class="input-tip">材料名称：</div>
-      <div class="input-field">
-        <el-input autofocus v-model="searchValue.name"></el-input>
+    <div v-show="printView ? false : true">
+      <div class="interval">
+        <h2 class="container-row font_title">新辉眼镜有限公司</h2>
+        <h3 class="font_subheading">
+          {{ $route.meta.title }}
+        </h3>
       </div>
-      <div class="input-tip">材料型号：</div>
-      <div class="input-field">
-        <el-input v-model="searchValue.typeName"></el-input>
-      </div>
-      <div class="input-tip"></div>
-      <div class="input-field">
-        <el-button type="primary" style="font-size: 16px; color: #000;" @click="search"
-          :disabled="disabled">搜&emsp;索</el-button>
-        <el-button type="primary" style="font-size: 16px; color: #000;" @click="back">返回详单</el-button>
-      </div>
-    </el-container>
-    <el-table border :data="historyList">
-      <el-table-column prop="time" label="时间" width="120"></el-table-column>
-      <el-table-column prop="name" label="材料型号">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.name"></el-input>
+      <el-row>
+        <el-container class="container-row">
+          <div class="input-tip">时间：</div>
+          <div class="input-field">
+            <!-- <el-input v-model="searchValue.typeName"></el-input> -->
+            <el-date-picker v-model="searchValue.time" type="daterange" format="YYYY-MM-DD" range-separator="至"
+              start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" value-format="YYYY-MM-DD"
+              :default-time="defaultTime">
+            </el-date-picker>
+          </div>
+          <div class="input-tip">型号：</div>
+          <div class="input-field">
+            <el-input autofocus v-model="searchValue.name" style="width:80px"></el-input>
+          </div>
+          <div class="input-tip">规格：</div>
+          <div class="input-field">
+            <el-input v-model="searchValue.typeName" style="width:80px"></el-input>
+          </div>
+          <div class="input-tip">来源：</div>
+          <div class="input-field">
+            <el-input v-model="searchValue.username" style="width:80px"></el-input>
+          </div>
+          <div class="input-field">
+            <el-button type="primary" style="font-size: 16px; color: #000;" @click="search"
+              :disabled="disabled">搜&emsp;索</el-button>
+            <el-button type="primary" style="font-size: 16px; color: #000;" @click="back"
+              :disabled="disabled ? true : false">返回详单</el-button>
+            <el-button type="primary" style="font-size: 16px; color: #000;" @click="clearSearch"
+              :disabled="disabled">清空搜索</el-button>
+            <el-button type="primary" style="font-size: 16px; color: #000;" :disabled="isPrint"
+              @click="print">打印</el-button>
+          </div>
+        </el-container>
 
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="typeName" label="材料规格">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.typeName"></el-input>
+      </el-row>
 
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="num" label="数量" width="80">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.num" @blur="calculate(scope.row)"></el-input>
+      <el-table border :data="historyList">
+        <el-table-column prop="time" label="时间" width="120"></el-table-column>
+        <el-table-column prop="name" label="材料型号">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.name"></el-input>
 
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="unit" label="单位" width="70"></el-table-column>
-      <el-table-column prop="price" label="单价" width="70">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.price" @blur="calculate(scope.row)"></el-input>
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="money" label="金额">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.money"></el-input>
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="address" label="仓位" width="100">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.address"></el-input>
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="username" label="来源" width="100">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.username"></el-input>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="typeName" label="材料规格">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.typeName"></el-input>
 
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="operation" label="仓管" width="100"></el-table-column>
-      <el-table-column prop="remark" label="备注">
-        <template #default="scope">
-          <span v-if="scope.row.flag">
-            <el-input v-model.trim="scope.row.remark"></el-input>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="num" label="数量" width="80">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.num" @blur="calculate(scope.row)"></el-input>
 
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="" label="操作">
-        <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.row)" :disabled="scope.row.flag">编辑</el-button>
-          <el-button size="small" @click="save(scope.row, scope.$index)"
-            :disabled="scope.row.flag ? false : true">保存</el-button>
-          <el-button size="small" type="danger" @click="deleteEdit(scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="unit" label="单位" width="70"></el-table-column>
+        <el-table-column prop="price" label="单价" width="70">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.price" @blur="calculate(scope.row)"></el-input>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="money" label="金额">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.money"></el-input>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="address" label="仓位" width="100">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.address"></el-input>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="username" label="来源" width="100">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.username"></el-input>
 
-    </el-table>
-    <div>
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="operation" label="仓管" width="100"></el-table-column>
+        <el-table-column prop="remark" label="备注">
+          <template #default="scope">
+            <span v-if="scope.row.flag">
+              <el-input v-model.trim="scope.row.remark"></el-input>
+
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="" label="操作">
+          <template #default="scope">
+            <el-button size="small" @click="handleEdit(scope.row)" :disabled="scope.row.flag">编辑</el-button>
+            <el-button size="small" @click="save(scope.row, scope.$index)"
+              :disabled="scope.row.flag ? false : true">保存</el-button>
+            <el-button size="small" type="danger" @click="deleteEdit(scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+
+      </el-table>
       <el-pagination id="page" background layout="prev, pager, next" prev-text='上一页' next-text="下一页"
         @current-change="pageChange" :total="total" :default-page-size='pageSize'>
       </el-pagination>
     </div>
+    <div v-show="printView">
+      <info-search :list="DataAll" @flag="isFlag"></info-search>
+    </div>
+
   </div>
 </template>
 <script>
 import '@/assets/css/commo.css'
+import infoSearch from '../common/print.vue'
 import { getAxios } from '@/assets/js/base'
 export default {
+  components: {
+    infoSearch
+  },
   data() {
     return {
       historyList: [],//渲染列表
       searchValue: {
         name: "",
-        typeName: ""
+        typeName: "",
+        time: null,
+        username: ''
       },
       total: 0,//总条数
       pageIndex: 1,//当前页数
       pageSize: 10,//一页展示10条
       isSearch: false,
-      DataAll: []
+      DataAll: [],
+      defaultTime: [
+        new Date(2000, 1, 1, 7, 30, 0),
+        new Date(2000, 2, 1, 19, 30, 0)
+      ],
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
+      isPrint: true,//是否打印
+      printView: false,//显示打印界面
     }
   },
   created() {
     // 渲染页面
     this.RenderList()
+    
   },
+ 
   methods: {
     // 打开编辑
     handleEdit(row) {
@@ -184,7 +227,7 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          getAxios("deletematerial", { _id: row._id, name: row.name, typeName: row.typeName, num: row.num}).then(res => {
+          getAxios("deletematerial", { _id: row._id, name: row.name, typeName: row.typeName, num: row.num }).then(res => {
             if (res.state == 200) {
               // 重新渲染页面
               this.RenderList()
@@ -235,6 +278,16 @@ export default {
     search() {
       this.isSearch = true
       this.total = 0
+      if (this.searchValue.time == null) {
+        console.log("参数", this.searchValue)
+        this.searchValue.start = ''
+        this.searchValue.end = ''
+      } else {
+        this.searchValue.start = this.searchValue.time[0]
+        this.searchValue.end = this.searchValue.time[1]
+        delete this.searchValue.time
+
+      }
       getAxios("materialsearch", this.searchValue).then(res => {
         if (res.state == 200) {
           this.historyList = []
@@ -242,8 +295,21 @@ export default {
           this.DataAll = res.res
           this.total = res.res.length
           this.historyList = this.DataAll.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize)
-          // this.historyList = res.res
+          this.isPrint = false
+          let nums = 0
+          let moneys = 0
+          this.DataAll.forEach(item => {
+            moneys += item.money * 1
+            nums += item.num * 1
+          })
+          let obj = {
+            num: nums,
+            money: moneys,
+            time: "总计"
+          }
 
+          this.DataAll.push(obj)
+          console.log("总计",this.DataAll)
         } else {
           this.message(res.msg, "error")
           this.historyList = []
@@ -255,6 +321,21 @@ export default {
       this.isSearch = false
       this.total = 0
       this.RenderList()
+    },
+    // 打印
+    print() {
+      this.printView = true
+      
+    },
+    // 清空搜索
+    clearSearch() {
+      console.log("看看", this.searchValue)
+      this.searchValue = {
+        name: "",
+        typeName: "",
+        time: null,
+        username: ''
+      }
     },
     // 封装消息提醒
     message(msg, type) {
@@ -273,7 +354,7 @@ export default {
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }).then(res => {
-        console.log("有没有执行这里",res)
+        console.log("有没有执行这里", res)
         if (res.state == 200) {
           let list = []
           res.res.forEach(item => {
@@ -282,24 +363,31 @@ export default {
           })
           this.total = res.count
           this.historyList = list.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize)
-          
-          
+
+
           sessionStorage.setItem("historyList", JSON.stringify(list))
 
         }
-      }).catch(err=>{
+      }).catch(err => {
         console.log("出错了")
       })
 
     },
+    //接收子组件传过来的状态值
+    isFlag(val){
+      this.printView = val
+    }
   },
 
   computed: {
     disabled() {
-      return this.searchValue.name.length == 0 && this.searchValue.typeName.length == 0
+      return this.searchValue.name.length == 0 && this.searchValue.typeName.length == 0 && this.searchValue.time == null && this.searchValue.username.length == 0
     }
   }
 
 }
 </script>
-<style></style>
+<style scoped>
+
+
+</style>

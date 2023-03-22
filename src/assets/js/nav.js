@@ -38,7 +38,7 @@ export function heandleSelect(key, keyPath) {
     }else if(key == '2-2-1'){
         this.$router.push("/home/material/delivery")
     }else if(key == '2-2-2'){
-        this.$router.push("/home/material/deliveryhistory")
+        this.$router.push("/home/material/materialdeliveryHistory")
     }
     else if(key == '3-1-1'){
         this.$router.push("/home/hardware/hardwarelist")
@@ -46,8 +46,11 @@ export function heandleSelect(key, keyPath) {
         this.$router.push("/home/hardware/hardwarehistory")
     }else if(key == '3-1-3'){
         this.$router.push("/home/hardware/hardwaregoods")
-    }
-    else if(key == '4-1-1'){
+    }else if(key == '3-2-1'){
+        this.$router.push("/home/hardware/hardwaredelivery")
+    }else if(key == '3-2-2'){
+        this.$router.push("/home/hardware/history")
+    }else if(key == '4-1-1'){
         this.$router.push('/home/bill/infolist')
 
     }else if(key == '4-1-2'){

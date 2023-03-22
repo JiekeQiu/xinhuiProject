@@ -130,7 +130,7 @@ export default {
                     this.DataAll = []
                     this.DataAll = res.res
                     res.res.forEach(item => {
-                        if (item.num <= item.compare) {
+                        if (item.num*1 <= item.compare*1) {
                             item.flag = true
                         } else {
                             item.flag = false

@@ -19,7 +19,6 @@
                 <p v-show="list.timeEnd==null" class="title_msg">客户总订单</P>
                 <p v-show="list.times===list.date&&(list.title==='客户详单'||list.title=='客户订单金额')" class="title_msg">{{list.name}}{{list.time}}-{{list.timeEnd}}对账单</p>
                 <p v-show="list.times!=list.date&&(list.title==='客户详单'||list.title=='客户订单金额')" class="title_msg">{{list.time}}至{{list.timeEnd}}客户对账单</p>
-                {{ list }}
               </div>
               <el-container class="top_msg">
                 <span>列印人：</span>

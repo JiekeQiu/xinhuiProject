@@ -93,7 +93,7 @@ const routes = [
                         path:"information",
                         name:'information',
                         component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/information.vue'),
-                        meta:{title:'基础信息维护'} 
+                        meta:{title:'原料基础信息维护'} 
                     },
                     {
                         path:"delivery",
@@ -101,9 +101,9 @@ const routes = [
                         component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/delivery.vue'),
                         meta:{title:'原料出库单'} 
                     },{
-                        path:"deliveryhistory",
-                        name:'deliveryhistory',
-                        component: () => import(/* webpackChunkName: "delivery" */ '../components/material/pages/deliveryHistory.vue'),
+                        path:"materialdeliveryHistory",
+                        name:'materialdeliveryHistory',
+                        component: () => import(/* webpackChunkName: "materialdeliveryHistory" */ '../components/material/pages/materialdeliveryHistory.vue'),
                         meta:{title:'原料出库明细'} 
                     }
                 ]
@@ -130,6 +130,23 @@ const routes = [
                         name:'hardwaregoods',
                         component: () => import(/* webpackChunkName: "hardwaregoods" */ '../components/hardware/pages/hardwareGoods.vue'),
                         meta:{title:'五金库存盘点'} 
+                    },
+                    {
+                        path:"wjinformation",
+                        name:'wjinformation',
+                        component: () => import(/* webpackChunkName: "wjinformation" */ '../components/hardware/pages/wjinformation.vue'),
+                        meta:{title:'五金基础信息维护'} 
+                    },
+                    {
+                        path:"hardwaredelivery",
+                        name:'hardwaredelivery',
+                        component: () => import(/* webpackChunkName: "hardwaredelivery" */ '../components/hardware/pages/hardwaredelivery.vue'),
+                        meta:{title:'五金出库单'} 
+                    },{
+                        path:"history",
+                        name:'history',
+                        component: () => import(/* webpackChunkName: "history" */ '../components/hardware/pages/history.vue'),
+                        meta:{title:'五金出库明细'} 
                     }
                 ]
             }
