@@ -289,7 +289,6 @@ export default {
                         type: 6
                     }
                     getAxios("/materialgood", params).then(res => {
-                        console.log(res.res)
                         if (res.state == 200) {
                             this.data.tableData[idx].address = res.res[0].address
                             if(this.$route.meta.title == '五金出库单'){
@@ -389,7 +388,8 @@ export default {
         let user = localStorage.getItem("user")
         let username = JSON.parse(user).username
         this.data.operation = username
-        getAxios("materialgood", { type: 5 }).then(res => {
+        getAxios("materialgood", { type: 10 }).then(res => {
+            console.log("查看五金",res)
             this.list = res.res
             res.res.map(itme => {
                 var a = itme.name;

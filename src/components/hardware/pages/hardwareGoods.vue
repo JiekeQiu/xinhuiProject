@@ -7,11 +7,11 @@
             </h3>
         </div>
         <el-container class="container-row">
-            <div class="input-tip">材料名称：</div>
+            <div class="input-tip">五金名称：</div>
             <div class="input-field">
                 <el-input autofocus v-model="searchValue.name"></el-input>
             </div>
-            <div class="input-tip">材料型号：</div>
+            <div class="input-tip">五金型号：</div>
             <div class="input-field">
                 <el-input v-model="searchValue.typeName"></el-input>
             </div>
@@ -19,12 +19,15 @@
             <div class="input-field">
                 <el-button type="primary" style="font-size: 16px; color: #000;" @click="search" :disabled="disabled">搜&emsp;索</el-button>
                 <el-button type="primary" style="font-size: 16px; color: #000;" @click="back">返回详单</el-button>
+                <el-button type="primary" style="font-size: 16px; color: #000;" @click="clearSearch" :disabled="disabled">清空搜索</el-button>
+                <el-button type="primary" style="font-size: 16px; color: #000;" @click="replenishment">备货查询</el-button>
+
                 <el-button type="primary" style="font-size: 16px; color: #000;" @click="msg">基础信息维护</el-button>
             </div>
         </el-container>
         <el-table border :data="goods">
-            <el-table-column label="材料名称" prop="name"></el-table-column>
-            <el-table-column label="材料型号" prop="typeName"></el-table-column>
+            <el-table-column label="五金名称" prop="name"></el-table-column>
+            <el-table-column label="五金型号" prop="typeName"></el-table-column>
             <el-table-column label="数量" prop="num"></el-table-column>
             <el-table-column label="单位" prop="unit"></el-table-column>
             <el-table-column label="仓位" prop="address"></el-table-column>
@@ -38,7 +41,7 @@
         </el-table>
         <div>
             <el-pagination id="page" background layout="prev, pager, next" prev-text='上一页' next-text="下一页"
-                @current-change="pageChange" :total="total" :default-page-size='pageSize'>
+                @current-change="pageChange" :total="total" :default-page-size='pageSize' v-show="isPage">
             </el-pagination>
         </div>
     </div>
@@ -58,7 +61,8 @@ export default {
                 typeName: ""
             },
             isSearch: false,
-            DataAll: []
+            DataAll: [],
+            isPage:true
         }
     },
     mounted() {
@@ -130,7 +134,7 @@ export default {
                     this.DataAll = []
                     this.DataAll = res.res
                     res.res.forEach(item => {
-                        if (item.num <= item.compare) {
+                        if (item.num*1 <= item.compare*1) {
                             item.flag = true
                         } else {
                             item.flag = false
@@ -149,8 +153,32 @@ export default {
         // 返回详情也
         back() {
             this.isSearch = false
+            this.isPage= true
             this.total = 0
             this.RenderList()
+        },
+        // 清空搜索
+        clearSearch(){
+            this.searchValue={
+                name: "",
+                typeName: ""
+            }
+        },
+        // 查询需要补货的列表
+        replenishment() {
+            getAxios("replenishment", { type: 2 }).then(res => {
+                if (res.state == 200) {
+                    res.res.forEach(item => {
+                        if (item.num * 1 <= item.compare * 1) {
+                            item.flag = true
+                        } else {
+                            item.flag = false
+                        }
+                    })
+                    this.goods = res.res
+                    this.isPage = false
+                }
+            })
         },
         // 封装渲染页面
         RenderList() {

@@ -7,11 +7,11 @@
             </h3>
         </div>
         <el-container class="container-row">
-            <div class="input-tip">材料型号：</div>
+            <div class="input-tip">五金型号：</div>
             <div class="input-field">
                 <el-input autofocus v-model.trim="searchValue.name"></el-input>
             </div>
-            <div class="input-tip">材料规格：</div>
+            <div class="input-tip">五金规格：</div>
             <div class="input-field">
                 <el-input v-model.trim="searchValue.typeName"></el-input>
             </div>
@@ -24,8 +24,8 @@
             </div>
         </el-container>
         <el-table border :data="goods">
-            <el-table-column label="材料名称" prop="name"></el-table-column>
-            <el-table-column label="材料型号" prop="typeName"></el-table-column>
+            <el-table-column label="五金名称" prop="name"></el-table-column>
+            <el-table-column label="五金型号" prop="typeName"></el-table-column>
             <el-table-column label="库存下限" prop="compare">
                 <template #default="scope">
                     <span v-show="scope.row.flag ? false : true">

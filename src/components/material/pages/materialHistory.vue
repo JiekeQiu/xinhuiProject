@@ -173,7 +173,6 @@ export default {
     // 打开编辑
     handleEdit(row) {
       row.flag = !row.flag
-      console.log(row)
     },
     // 失去焦点计算总价
     calculate(row) {
@@ -231,6 +230,7 @@ export default {
             if (res.state == 200) {
               // 重新渲染页面
               this.RenderList()
+              this.total = 0
               this.message(res.msg, 'success')
             } else {
               this.message(res.msg, "error")
@@ -354,7 +354,6 @@ export default {
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }).then(res => {
-        console.log("有没有执行这里", res)
         if (res.state == 200) {
           let list = []
           res.res.forEach(item => {
@@ -363,8 +362,6 @@ export default {
           })
           this.total = res.count
           this.historyList = list.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize)
-
-
           sessionStorage.setItem("historyList", JSON.stringify(list))
 
         }

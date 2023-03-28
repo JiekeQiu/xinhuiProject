@@ -15,10 +15,19 @@
             <div class="input-field">
                 <el-input v-model="searchValue.typeName"></el-input>
             </div>
+            <!-- <div class="input-tip">是否备货：</div>
+            <div class="input-field">
+                <el-input v-model="searchValue.isShopping"></el-input>
+            </div> -->
             <div class="input-tip"></div>
             <div class="input-field">
-                <el-button type="primary" style="font-size: 16px; color: #000;" @click="search" :disabled="disabled">搜&emsp;索</el-button>
-                <el-button type="primary" style="font-size: 16px; color: #000;" @click="back">返回详单</el-button>
+                <el-button type="primary" style="font-size: 16px; color: #000;" @click="search"
+                    :disabled="disabled">搜&emsp;索</el-button>
+                <el-button type="primary" style="font-size: 16px; color: #000;" @click="back"
+                    >返回详单</el-button>
+                <el-button type="primary" style="font-size: 16px; color: #000;" @click="clearSearch"
+                    :disabled="disabled">清空搜索</el-button>
+                <el-button type="primary" style="font-size: 16px; color: #000;" @click="replenishment">备货查询</el-button>
                 <el-button type="primary" style="font-size: 16px; color: #000;" @click="msg">基础信息维护</el-button>
             </div>
         </el-container>
@@ -38,7 +47,7 @@
         </el-table>
         <div>
             <el-pagination id="page" background layout="prev, pager, next" prev-text='上一页' next-text="下一页"
-                @current-change="pageChange" :total="total" :default-page-size='pageSize'>
+                @current-change="pageChange" :total="total" :default-page-size='pageSize' v-show="isPage">
             </el-pagination>
         </div>
     </div>
@@ -46,6 +55,7 @@
 <script>
 import '@/assets/css/commo.css'
 import { getAxios } from '@/assets/js/base';
+import { set } from 'lodash';
 export default {
     data() {
         return {
@@ -55,10 +65,12 @@ export default {
             pageSize: 10,//一页展示10条
             searchValue: {
                 name: "",
-                typeName: ""
+                typeName: "",
+                // isShopping:'',
             },
             isSearch: false,
-            DataAll: []
+            DataAll: [],
+            isPage:true
         }
     },
     mounted() {
@@ -75,7 +87,7 @@ export default {
                     if (_that.pageIndex) {
                         _that.pageIndex = pageIndex
                     }
-                    _that.goods=[]
+                    _that.goods = []
                     let list = _that.DataAll.slice((_that.pageIndex - 1) * _that.pageSize, _that.pageIndex * _that.pageSize)
                     list.forEach(item => {
                         if (item.num <= item.compare) {
@@ -130,7 +142,7 @@ export default {
                     this.DataAll = []
                     this.DataAll = res.res
                     res.res.forEach(item => {
-                        if (item.num*1 <= item.compare*1) {
+                        if (item.num * 1 <= item.compare * 1) {
                             item.flag = true
                         } else {
                             item.flag = false
@@ -139,18 +151,42 @@ export default {
                     })
                     this.total = res.res.length
                     this.goods = this.DataAll.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize)
-                    
+
                 } else {
                     this.message(res.msg, "error")
                     this.goods = []
                 }
             })
         },
+        //清空搜索
+        clearSearch() {
+            this.searchValue = {
+                name: "",
+                typeName: ""
+            }
+        },
         // 返回详情也
         back() {
             this.isSearch = false
+            this.isPage =true
             this.total = 0
             this.RenderList()
+        },
+        // 查询需要补货的列表
+        replenishment() {
+            getAxios("replenishment", { type: 1 }).then(res => {
+                if (res.state == 200) {
+                    res.res.forEach(item => {
+                        if (item.num * 1 <= item.compare * 1) {
+                            item.flag = true
+                        } else {
+                            item.flag = false
+                        }
+                    })
+                    this.goods = res.res
+                    this.isPage = false
+                }
+            })
         },
         // 封装渲染页面
         RenderList() {
@@ -162,7 +198,7 @@ export default {
                 if (res.state == 200) {
                     // let arr = []
                     res.res.forEach(item => {
-                        if (item.num <= item.compare) {
+                        if (item.num * 1 <= item.compare * 1) {
                             item.flag = true
                         } else {
                             item.flag = false
@@ -189,5 +225,6 @@ export default {
             return this.searchValue.name.length == 0 && this.searchValue.typeName.length == 0
         }
     }
+   
 }
 </script>

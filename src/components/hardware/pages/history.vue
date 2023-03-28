@@ -221,6 +221,7 @@ export default {
                             this.message(res.msg, 'success')
                             // 重新渲染页面
                             this.RenderList()
+                            this.total=0
                         } else {
                             this.message(res.msg, "error")
                         }

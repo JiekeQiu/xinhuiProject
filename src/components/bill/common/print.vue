@@ -200,7 +200,9 @@ export default {
   }
   table{
     font-size: 100px;
-  }
-  
+  } 
+  @page {
+        margin: 0.8cm;
+    }
 }
 </style>

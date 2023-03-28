@@ -1,13 +1,13 @@
 <template>
     <div>
-        <el-table border :data="info_list" style="width: 100%">
-            <el-table-column label="送货日期" prop="time" width="120px"></el-table-column>
+        <el-table border :data="info_list" style="width: 100%" :default-sort = "{prop: 'date', order: 'descending'}">
+            <el-table-column label="送货日期" prop="time" width="120px" sortable></el-table-column>
             <el-table-column label="送货单号" prop="No" width="120px"></el-table-column>
-            <el-table-column label="客户名称" prop="username" width="100px"></el-table-column>
+            <el-table-column label="客户名称" prop="username" width="100px" sortable></el-table-column>
             <el-table-column label="产品名称" prop="name" width="130px"></el-table-column>
             <el-table-column label="产品规格" prop="typeNmae" width="130px"></el-table-column>
             <el-table-column label="单位" prop="unit" width="60px"></el-table-column>
-            <el-table-column label="数量" prop="num" width="100px"></el-table-column>
+            <el-table-column label="数量" prop="num" width="100px" sortable></el-table-column>
             <el-table-column label="单价" prop="money" width="100px"></el-table-column>
             <el-table-column label="总金额" prop="All" width="100px"></el-table-column>
             <el-table-column label="备注" prop="remark"></el-table-column>
